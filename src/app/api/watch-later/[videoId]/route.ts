@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { checkRateLimit } from "@/lib/rateLimit";
 
 export async function DELETE(_request: Request, { params }: { params: Promise<{ videoId: string }> }) {
   const { videoId } = await params;
@@ -8,6 +9,9 @@ export async function DELETE(_request: Request, { params }: { params: Promise<{ 
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Not signed in" }, { status: 401 });
+  if (!(await checkRateLimit(`watch-later:${user.id}`))) {
+    return NextResponse.json({ error: "Too many requests" }, { status: 429 });
+  }
 
   const { error } = await supabase.from("watch_later").delete().eq("user_id", user.id).eq("video_id", videoId);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

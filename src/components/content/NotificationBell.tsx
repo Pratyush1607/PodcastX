@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Bell } from "lucide-react";
+import { Bell, X } from "lucide-react";
 import type { ApiVideo } from "@/types/api";
 
 export function NotificationBell({ recentSaves }: { recentSaves: ApiVideo[] }) {
   const [open, setOpen] = useState(false);
+  const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,6 +19,16 @@ export function NotificationBell({ recentSaves }: { recentSaves: ApiVideo[] }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
+  const visibleSaves = recentSaves.filter((video) => !dismissedIds.has(video.id));
+
+  function dismiss(videoId: string) {
+    setDismissedIds((prev) => new Set(prev).add(videoId));
+  }
+
+  function dismissAll() {
+    setDismissedIds(new Set(recentSaves.map((video) => video.id)));
+  }
+
   return (
     <div ref={ref} className="relative">
       <button
@@ -25,42 +36,61 @@ export function NotificationBell({ recentSaves }: { recentSaves: ApiVideo[] }) {
         className="relative flex h-10 w-10 items-center justify-center rounded-full bg-surface text-muted transition hover:text-foreground"
       >
         <Bell size={18} />
-        {recentSaves.length > 0 && (
+        {visibleSaves.length > 0 && (
           <span className="absolute top-2.5 right-2.5 h-1.5 w-1.5 rounded-full bg-accent" />
         )}
       </button>
 
       {open && (
         <div className="absolute top-12 right-0 left-auto z-30 w-72 max-w-[80vw] rounded-2xl bg-surface p-2 shadow-xl sm:w-80 lg:fixed lg:top-20 lg:right-6 lg:w-[272px] lg:max-w-none">
-          <p className="px-3 pt-2 pb-1 text-xs font-bold tracking-[0.15em] text-muted uppercase">
-            Recently saved
-          </p>
-          {recentSaves.length === 0 ? (
+          <div className="flex items-center justify-between px-3 pt-2 pb-1">
+            <p className="text-xs font-bold tracking-[0.15em] text-muted uppercase">Recently saved</p>
+            {visibleSaves.length > 0 && (
+              <button
+                onClick={dismissAll}
+                className="text-xs font-semibold text-muted transition hover:text-foreground"
+              >
+                Clear all
+              </button>
+            )}
+          </div>
+          {visibleSaves.length === 0 ? (
             <p className="px-3 py-4 text-sm text-muted">
               Nothing saved yet — tap the bookmark icon on a video to add it here.
             </p>
           ) : (
             <div className="flex flex-col">
-              {recentSaves.map((video) => (
-                <Link
+              {visibleSaves.map((video) => (
+                <div
                   key={video.id}
-                  href="/favourites"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 rounded-xl p-2 transition hover:bg-surface-hover"
+                  className="group flex items-center gap-1 rounded-xl transition hover:bg-surface-hover"
                 >
-                  {video.thumbnail_url && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={video.thumbnail_url}
-                      alt=""
-                      className="h-11 w-11 shrink-0 rounded-lg object-cover"
-                    />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-semibold">{video.title}</p>
-                    <p className="truncate text-xs text-muted">{video.channel_name}</p>
-                  </div>
-                </Link>
+                  <Link
+                    href="/favourites"
+                    onClick={() => setOpen(false)}
+                    className="flex min-w-0 flex-1 items-center gap-3 p-2"
+                  >
+                    {video.thumbnail_url && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={video.thumbnail_url}
+                        alt=""
+                        className="h-11 w-11 shrink-0 rounded-lg object-cover"
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-semibold">{video.title}</p>
+                      <p className="truncate text-xs text-muted">{video.channel_name}</p>
+                    </div>
+                  </Link>
+                  <button
+                    onClick={() => dismiss(video.id)}
+                    title="Dismiss"
+                    className="mr-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-muted opacity-0 transition group-hover:opacity-100 hover:bg-white/10 hover:text-foreground"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
               ))}
             </div>
           )}

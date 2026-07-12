@@ -33,8 +33,20 @@ function sevenDaysAgoIso(): string {
   return new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 }
 
+/** YouTube Shorts top out at 3 minutes; anything at or under that is excluded so only long-form content is shown. */
+const SHORTS_MAX_SECONDS = 180;
+
+/** Parses an ISO 8601 duration (e.g. "PT1M30S") into whole seconds. */
+function parseIsoDurationSeconds(duration: string | null | undefined): number {
+  if (!duration) return 0;
+  const match = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(duration);
+  if (!match) return 0;
+  const [, hours, minutes, seconds] = match;
+  return (Number(hours) || 0) * 3600 + (Number(minutes) || 0) * 60 + (Number(seconds) || 0);
+}
+
 /** Searches YouTube for `query`, published in the last 7 days, and returns candidates sorted by view count desc. */
-export async function searchTopVideos(query: string, overfetch = 25): Promise<VideoCandidate[]> {
+export async function searchTopVideos(query: string, overfetch = 35): Promise<VideoCandidate[]> {
   const searchRes = await youtube.search.list({
     part: ["id"],
     q: query,
@@ -50,20 +62,22 @@ export async function searchTopVideos(query: string, overfetch = 25): Promise<Vi
   if (videoIds.length === 0) return [];
 
   const detailsRes = await youtube.videos.list({
-    part: ["snippet", "statistics"],
+    part: ["snippet", "statistics", "contentDetails"],
     id: videoIds,
   });
 
-  const candidates: VideoCandidate[] = (detailsRes.data.items ?? []).map((item) => ({
-    youtubeVideoId: item.id!,
-    title: item.snippet?.title ?? "Untitled",
-    channelName: item.snippet?.channelTitle ?? "Unknown channel",
-    url: `https://www.youtube.com/watch?v=${item.id}`,
-    viewCount: Number(item.statistics?.viewCount ?? 0),
-    publishedAt: item.snippet?.publishedAt ?? new Date().toISOString(),
-    thumbnailUrl:
-      item.snippet?.thumbnails?.high?.url ?? item.snippet?.thumbnails?.default?.url ?? undefined,
-  }));
+  const candidates: VideoCandidate[] = (detailsRes.data.items ?? [])
+    .filter((item) => parseIsoDurationSeconds(item.contentDetails?.duration) > SHORTS_MAX_SECONDS)
+    .map((item) => ({
+      youtubeVideoId: item.id!,
+      title: item.snippet?.title ?? "Untitled",
+      channelName: item.snippet?.channelTitle ?? "Unknown channel",
+      url: `https://www.youtube.com/watch?v=${item.id}`,
+      viewCount: Number(item.statistics?.viewCount ?? 0),
+      publishedAt: item.snippet?.publishedAt ?? new Date().toISOString(),
+      thumbnailUrl:
+        item.snippet?.thumbnails?.high?.url ?? item.snippet?.thumbnails?.default?.url ?? undefined,
+    }));
 
   return candidates.sort((a, b) => b.viewCount - a.viewCount);
 }

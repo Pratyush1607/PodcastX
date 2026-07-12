@@ -3,7 +3,6 @@ import { CATEGORY_SLUGS } from "@/types/db";
 import type { CategorySlug, ContentType } from "@/types/db";
 import { getScopePageData } from "@/lib/content";
 import { getSavedVideoIdSet } from "@/lib/watchLater";
-import { CategoryBar } from "@/components/content/CategoryBar";
 import { TopFiveList } from "@/components/content/TopFiveList";
 
 const VALID_SCOPES: CategorySlug[] = ["overall", ...CATEGORY_SLUGS];
@@ -19,7 +18,6 @@ export async function ScopePage({ type, scope }: { type: ContentType; scope: str
 
   return (
     <div className="space-y-6 px-8 py-6">
-      <CategoryBar type={type} />
       <div>
         <h2 className="mb-4 text-2xl font-bold">
           {label} {kind}

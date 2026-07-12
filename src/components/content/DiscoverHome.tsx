@@ -88,7 +88,6 @@ export async function DiscoverHome({ type }: { type: ContentType }) {
 
       {runId && (
         <DiscoverSidePanel
-          base={base}
           userEmail={user?.email ?? null}
           userName={name ?? null}
           searchableVideos={[...all, ...categories.flatMap((c) => c.videos)]}

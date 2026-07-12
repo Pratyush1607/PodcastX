@@ -38,7 +38,6 @@ function formatRelativeTime(iso: string): string {
 }
 
 export function DiscoverSidePanel({
-  base,
   userEmail,
   userName,
   searchableVideos,
@@ -46,7 +45,6 @@ export function DiscoverSidePanel({
   recentSaves,
   savedVideoIds,
 }: {
-  base: string;
   userEmail: string | null;
   userName: string | null;
   searchableVideos: ApiVideo[];
@@ -170,31 +168,31 @@ export function DiscoverSidePanel({
       </div>
 
       <div>
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-xs font-bold tracking-[0.15em] text-muted uppercase">Categories</h3>
-          <Link href={base} className="text-xs font-semibold text-accent hover:brightness-110">
-            View all
-          </Link>
-        </div>
-        <div className="grid grid-cols-3 gap-3">
-          {genres.map((genre) => {
-            const Icon = CATEGORY_ICONS[genre.scope as Exclude<CategorySlug, "overall">];
-            return (
-              <Link
-                key={genre.scope}
-                href={`${base}/${genre.scope}`}
-                title={genre.label}
-                className="group flex flex-col items-center gap-2 rounded-2xl bg-surface p-3 transition hover:bg-surface-hover"
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-background text-muted transition group-hover:bg-accent group-hover:text-accent-ink">
-                  {Icon && <Icon size={16} />}
-                </span>
-                <span className="w-full truncate text-center text-[11px] font-semibold text-muted group-hover:text-foreground">
-                  {genre.label}
-                </span>
-              </Link>
-            );
-          })}
+        <h3 className="mb-3 text-xs font-bold tracking-[0.15em] text-muted uppercase">Categories</h3>
+        <div className="relative">
+          <div className="grid grid-cols-3 gap-3 pointer-events-none blur-sm select-none">
+            {genres.map((genre) => {
+              const Icon = CATEGORY_ICONS[genre.scope as Exclude<CategorySlug, "overall">];
+              return (
+                <div
+                  key={genre.scope}
+                  className="flex flex-col items-center gap-2 rounded-2xl bg-surface p-3"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-background text-muted">
+                    {Icon && <Icon size={16} />}
+                  </span>
+                  <span className="w-full truncate text-center text-[11px] font-semibold text-muted">
+                    {genre.label}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="rounded-full bg-surface px-4 py-1.5 text-xs font-bold text-foreground shadow-xl">
+              Coming soon
+            </span>
+          </div>
         </div>
       </div>
 

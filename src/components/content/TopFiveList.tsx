@@ -24,7 +24,7 @@ export function TopFiveList({ videos, savedVideoIds }: { videos: ApiVideo[]; sav
   }
 
   if (videos.length === 0) {
-    return <p className="text-muted">No videos found for this scope yet — run the pipeline first.</p>;
+    return <p className="text-muted">Nothing here yet — check back soon as we find more this week.</p>;
   }
 
   return (

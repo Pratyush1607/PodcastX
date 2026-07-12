@@ -1,14 +1,27 @@
 "use client";
 
 import { useState } from "react";
+import { Pause, Play } from "lucide-react";
 import type { ApiVideo } from "@/types/api";
 import { Badge } from "@/components/ui/Badge";
 import { SummaryPanel } from "@/components/content/SummaryPanel";
 import { BookmarkButton } from "@/components/content/BookmarkButton";
 import { AddToPlaylistButton } from "@/components/content/AddToPlaylistButton";
+import { usePlayer } from "@/context/PlayerContext";
+import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
 
 export function TopFiveList({ videos, savedVideoIds }: { videos: ApiVideo[]; savedVideoIds: Set<string> }) {
   const [selected, setSelected] = useState<ApiVideo | null>(null);
+  const { current, playing, play, togglePlay } = usePlayer();
+
+  function handlePlayClick(e: React.MouseEvent, video: ApiVideo) {
+    e.stopPropagation();
+    if (current?.id === video.id) {
+      togglePlay();
+      return;
+    }
+    play(toNowPlayingTrack(video), videos.map(toNowPlayingTrack));
+  }
 
   if (videos.length === 0) {
     return <p className="text-muted">No videos found for this scope yet — run the pipeline first.</p>;
@@ -29,10 +42,22 @@ export function TopFiveList({ videos, savedVideoIds }: { videos: ApiVideo[]; sav
             className="flex min-w-0 flex-1 cursor-pointer items-center gap-4 text-left"
           >
             <span className="w-6 text-center text-lg font-bold text-accent">{video.rank}</span>
-            {video.thumbnail_url && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={video.thumbnail_url} alt="" className="h-16 w-16 rounded-xl object-cover" />
-            )}
+            <div className="group/thumb relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-background">
+              {video.thumbnail_url && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={video.thumbnail_url} alt="" className="h-full w-full object-cover" />
+              )}
+              <button
+                onClick={(e) => handlePlayClick(e, video)}
+                className="absolute inset-0 flex items-center justify-center bg-black/40 text-white opacity-0 backdrop-blur-sm transition group-hover/thumb:opacity-100 hover:bg-accent hover:text-accent-ink"
+              >
+                {current?.id === video.id && playing ? (
+                  <Pause size={16} />
+                ) : (
+                  <Play size={16} className="ml-0.5" />
+                )}
+              </button>
+            </div>
             <div className="min-w-0 flex-1">
               <p className="truncate font-semibold">{video.title}</p>
               <p className="truncate text-sm text-muted">{video.channel_name}</p>

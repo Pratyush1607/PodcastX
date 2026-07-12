@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Pause, Play } from "lucide-react";
 import type { ApiVideo } from "@/types/api";
 import { Badge } from "@/components/ui/Badge";
 import { SummaryPanel } from "@/components/content/SummaryPanel";
 import { BookmarkButton } from "@/components/content/BookmarkButton";
 import { AddToPlaylistButton } from "@/components/content/AddToPlaylistButton";
+import { usePlayer } from "@/context/PlayerContext";
+import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
 
 export function Row({
   label,
@@ -20,6 +23,16 @@ export function Row({
   savedVideoIds: Set<string>;
 }) {
   const [selected, setSelected] = useState<ApiVideo | null>(null);
+  const { current, playing, play, togglePlay } = usePlayer();
+
+  function handlePlayClick(e: React.MouseEvent, video: ApiVideo) {
+    e.stopPropagation();
+    if (current?.id === video.id) {
+      togglePlay();
+      return;
+    }
+    play(toNowPlayingTrack(video), videos.map(toNowPlayingTrack));
+  }
 
   if (videos.length === 0) return null;
 
@@ -61,6 +74,17 @@ export function Row({
                 <AddToPlaylistButton videoId={video.id} />
                 <BookmarkButton videoId={video.id} initialSaved={savedVideoIds.has(video.id)} />
               </div>
+
+              <button
+                onClick={(e) => handlePlayClick(e, video)}
+                className="absolute inset-0 m-auto flex h-11 w-11 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur transition group-hover:opacity-100 hover:bg-accent hover:text-accent-ink"
+              >
+                {current?.id === video.id && playing ? (
+                  <Pause size={18} />
+                ) : (
+                  <Play size={18} className="ml-0.5" />
+                )}
+              </button>
             </div>
 
             <button onClick={() => setSelected(video)} className="mt-2 block w-full text-left">

@@ -1,22 +1,35 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import type { ApiVideo } from "@/types/api";
 import { SummaryPanel } from "@/components/content/SummaryPanel";
 import { BookmarkButton } from "@/components/content/BookmarkButton";
 import { AddToPlaylistButton } from "@/components/content/AddToPlaylistButton";
+import { usePlayer } from "@/context/PlayerContext";
+import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
 
 export function Hero({ videos, savedVideoIds }: { videos: ApiVideo[]; savedVideoIds: Set<string> }) {
   const [index, setIndex] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
+  const { current, playing, play, togglePlay } = usePlayer();
 
   if (videos.length === 0) return <div className="h-48 rounded-[28px] bg-surface sm:h-56" />;
 
   const video = videos[index]!;
+  const isCurrent = current?.id === video.id;
 
   function go(delta: number) {
     setIndex((i) => (i + delta + videos.length) % videos.length);
+  }
+
+  function handlePlayClick(e: React.MouseEvent) {
+    e.stopPropagation();
+    if (isCurrent) {
+      togglePlay();
+      return;
+    }
+    play(toNowPlayingTrack(video), videos.map(toNowPlayingTrack));
   }
 
   return (
@@ -48,6 +61,13 @@ export function Hero({ videos, savedVideoIds }: { videos: ApiVideo[]; savedVideo
         <AddToPlaylistButton videoId={video.id} />
         <BookmarkButton videoId={video.id} initialSaved={savedVideoIds.has(video.id)} />
       </div>
+
+      <button
+        onClick={handlePlayClick}
+        className="absolute inset-0 m-auto flex h-14 w-14 items-center justify-center rounded-full bg-black/40 text-white opacity-0 backdrop-blur transition group-hover:opacity-100 hover:bg-accent hover:text-accent-ink"
+      >
+        {isCurrent && playing ? <Pause size={22} /> : <Play size={22} className="ml-1" />}
+      </button>
 
       {videos.length > 1 && (
         <>

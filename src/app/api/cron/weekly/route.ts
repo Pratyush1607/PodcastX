@@ -1,16 +1,10 @@
 import { executeRun, startRun } from "@/agents/pm";
+import { isAdminAuthorized } from "@/lib/adminAuth";
 
 export const maxDuration = 300;
 
-/** Vercel Cron sends a GET with `Authorization: Bearer <CRON_SECRET>`; require it whenever it's configured. */
-function isAuthorized(request: Request): boolean {
-  const secret = process.env.CRON_SECRET;
-  if (!secret) return true;
-  return request.headers.get("authorization") === `Bearer ${secret}`;
-}
-
 async function runScheduled(request: Request) {
-  if (!isAuthorized(request)) {
+  if (!isAdminAuthorized(request)) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
   const run = await startRun("scheduled");
@@ -18,7 +12,7 @@ async function runScheduled(request: Request) {
   return Response.json({ runId: run.id });
 }
 
-/** Hit by Vercel Cron on its configured schedule (see vercel.json). */
+/** Hit by Vercel Cron on its configured schedule (see vercel.json), sending Bearer <CRON_SECRET>. */
 export async function GET(request: Request) {
   return runScheduled(request);
 }

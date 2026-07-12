@@ -71,13 +71,13 @@ export function Sidebar({ userEmail }: { userEmail: string | null }) {
       <div className="mt-auto flex flex-col gap-3 pt-8">
         {userEmail ? (
           <>
-            <button
-              type="button"
+            <Link
+              href="/profile"
               className="flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-bold text-accent-ink transition hover:brightness-105"
             >
               <Crown size={16} />
               Go to Premium
-            </button>
+            </Link>
             <form action={signOut}>
               <button
                 type="submit"

@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Podcast, Mic2, Heart, ListMusic, Crown, LogOut, MoreHorizontal } from "lucide-react";
+import { Podcast, Mic2, Heart, ListMusic, Crown, LogOut, MoreHorizontal, X } from "lucide-react";
 import { signOut } from "@/app/actions/auth";
+import { useMobileNav } from "@/context/MobileNavContext";
 
 const MENU_ITEMS = [
   { key: "podcasts", href: "/podcasts", label: "Podcasts", icon: Podcast },
@@ -53,15 +54,33 @@ function NavGroup({
 
 export function Sidebar({ userEmail }: { userEmail: string | null }) {
   const pathname = usePathname();
+  const { open, close } = useMobileNav();
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 flex w-56 flex-col border-r border-border bg-sidebar px-4 py-6">
-      <Link href="/podcasts" className="flex items-center gap-2 px-3">
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-sm font-extrabold text-accent-ink">
-          PX
-        </span>
-        <span className="text-sm font-bold tracking-tight">PodcastX</span>
-      </Link>
+    <>
+      {open && (
+        <div
+          onClick={close}
+          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+        />
+      )}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 flex w-64 max-w-[80vw] flex-col border-r border-border bg-sidebar px-4 py-6 transition-transform lg:w-56 lg:max-w-none lg:translate-x-0 ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between px-3">
+          <Link href="/podcasts" className="flex items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-sm font-extrabold text-accent-ink">
+              PX
+            </span>
+            <span className="text-sm font-bold tracking-tight">PodcastX</span>
+          </Link>
+          <button onClick={close} className="text-muted lg:hidden">
+            <X size={20} />
+          </button>
+        </div>
 
       <div className="mt-8 flex flex-col gap-8">
         <NavGroup heading="Menu" items={MENU_ITEMS} pathname={pathname} />
@@ -97,6 +116,7 @@ export function Sidebar({ userEmail }: { userEmail: string | null }) {
           </Link>
         )}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

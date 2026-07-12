@@ -56,26 +56,26 @@ export function NowPlayingBar() {
 
   return (
     <div
-      className={`fixed bottom-0 left-56 z-40 flex items-center gap-4 border-t border-border bg-surface px-4 py-3 ${
+      className={`fixed bottom-0 left-0 z-40 flex items-center gap-2 border-t border-border bg-surface px-3 py-2 sm:gap-4 sm:px-4 sm:py-3 lg:left-56 ${
         isDiscoverHomeRoute(pathname) ? "right-0 lg:right-80" : "right-0"
       }`}
     >
-      <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-black">
+      <div className="h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-black sm:h-14 sm:w-14">
         <div id={GLOBAL_PLAYER_ELEMENT_ID} />
       </div>
 
-      <div className="w-36 min-w-0 shrink-0">
+      <div className="w-24 min-w-0 shrink-0 sm:w-36">
         {current ? (
           <>
             <p className="truncate text-sm font-semibold">{current.title}</p>
             <p className="truncate text-xs text-muted">{current.channelName}</p>
           </>
         ) : (
-          <p className="text-sm text-muted">Nothing playing</p>
+          <p className="truncate text-sm text-muted">Nothing playing</p>
         )}
       </div>
 
-      <div className="min-w-0 flex-1">
+      <div className="hidden min-w-0 flex-1 sm:block">
         <div
           ref={waveformRef}
           onClick={handleSeek}
@@ -97,12 +97,12 @@ export function NowPlayingBar() {
         </div>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2">
+      <div className="ml-auto flex shrink-0 items-center gap-1 sm:ml-0 sm:gap-2">
         <button
           onClick={previous}
           disabled={!hasQueue}
           title="Previous"
-          className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-white/10 hover:text-foreground disabled:opacity-30"
+          className="hidden h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-white/10 hover:text-foreground disabled:opacity-30 sm:flex"
         >
           <SkipBack size={16} />
         </button>
@@ -110,7 +110,7 @@ export function NowPlayingBar() {
         <button
           onClick={togglePlay}
           disabled={!current}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-accent-ink transition hover:brightness-105 disabled:opacity-30"
+          className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-accent-ink transition hover:brightness-105 disabled:opacity-30 sm:h-10 sm:w-10"
         >
           {playing ? <Pause size={18} /> : <Play size={18} className="ml-0.5" />}
         </button>
@@ -119,13 +119,13 @@ export function NowPlayingBar() {
           onClick={next}
           disabled={!hasQueue}
           title="Next"
-          className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-white/10 hover:text-foreground disabled:opacity-30"
+          className="hidden h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-white/10 hover:text-foreground disabled:opacity-30 sm:flex"
         >
           <SkipForward size={16} />
         </button>
       </div>
 
-      <div ref={menuRef} className="relative shrink-0">
+      <div ref={menuRef} className="relative hidden shrink-0 sm:block">
         <button
           onClick={() => setMenuOpen((o) => !o)}
           disabled={!current}

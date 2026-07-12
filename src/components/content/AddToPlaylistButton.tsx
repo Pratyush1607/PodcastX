@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { ListPlus, Check, Plus } from "lucide-react";
+import { LoginPromptModal } from "@/components/ui/LoginPromptModal";
 
 interface PlaylistOption {
   id: string;
@@ -16,8 +16,8 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
   const [playlists, setPlaylists] = useState<PlaylistOption[] | null>(null);
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     if (!open) return;
@@ -32,9 +32,9 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
     setLoading(true);
     const res = await fetch(`/api/playlists?videoId=${videoId}`);
     if (res.status === 401) {
-      router.push("/login");
       setOpen(false);
       setLoading(false);
+      setShowLoginPrompt(true);
       return;
     }
     const data = await res.json();
@@ -53,14 +53,16 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
     setPlaylists((prev) =>
       prev!.map((p) => (p.id === playlist.id ? { ...p, isMember: !p.isMember } : p))
     );
-    if (playlist.isMember) {
-      await fetch(`/api/playlists/${playlist.id}/videos/${videoId}`, { method: "DELETE" });
-    } else {
-      await fetch(`/api/playlists/${playlist.id}/videos`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ videoId }),
-      });
+    const res = playlist.isMember
+      ? await fetch(`/api/playlists/${playlist.id}/videos/${videoId}`, { method: "DELETE" })
+      : await fetch(`/api/playlists/${playlist.id}/videos`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ videoId }),
+        });
+    if (res.status === 401) {
+      setOpen(false);
+      setShowLoginPrompt(true);
     }
   }
 
@@ -73,6 +75,12 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: newName.trim(), videoId }),
     });
+    if (res.status === 401) {
+      setOpen(false);
+      setCreating(false);
+      setShowLoginPrompt(true);
+      return;
+    }
     if (res.ok) {
       const { playlist } = await res.json();
       setPlaylists((prev) => [{ id: playlist.id, name: playlist.name, isMember: true }, ...(prev ?? [])]);
@@ -136,6 +144,13 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
             </button>
           </form>
         </div>
+      )}
+
+      {showLoginPrompt && (
+        <LoginPromptModal
+          message="Log in to add videos to a playlist."
+          onClose={() => setShowLoginPrompt(false)}
+        />
       )}
     </div>
   );

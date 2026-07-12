@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Bookmark } from "lucide-react";
+import { LoginPromptModal } from "@/components/ui/LoginPromptModal";
 
 export function BookmarkButton({
   videoId,
@@ -15,7 +15,7 @@ export function BookmarkButton({
 }) {
   const [saved, setSaved] = useState(initialSaved);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
   async function toggle(e: React.MouseEvent) {
     e.preventDefault();
@@ -32,7 +32,7 @@ export function BookmarkButton({
         });
 
     if (res.status === 401) {
-      router.push("/login");
+      setShowLoginPrompt(true);
       setLoading(false);
       return;
     }
@@ -41,19 +41,28 @@ export function BookmarkButton({
   }
 
   return (
-    <button
-      onClick={toggle}
-      disabled={loading}
-      title={saved ? "Remove from Favourites" : "Save to Favourites"}
-      className={`flex shrink-0 items-center justify-center rounded-full backdrop-blur transition disabled:opacity-50 ${
-        size === "lg" ? "h-10 w-10 bg-white/10 hover:bg-white/20" : "h-7 w-7 bg-black/50 hover:bg-black/70"
-      }`}
-    >
-      <Bookmark
-        size={size === "lg" ? 20 : 15}
-        fill={saved ? "currentColor" : "none"}
-        className={saved ? "text-accent" : "text-white"}
-      />
-    </button>
+    <>
+      <button
+        onClick={toggle}
+        disabled={loading}
+        title={saved ? "Remove from Favourites" : "Save to Favourites"}
+        className={`flex shrink-0 items-center justify-center rounded-full backdrop-blur transition disabled:opacity-50 ${
+          size === "lg" ? "h-10 w-10 bg-white/10 hover:bg-white/20" : "h-7 w-7 bg-black/50 hover:bg-black/70"
+        }`}
+      >
+        <Bookmark
+          size={size === "lg" ? 20 : 15}
+          fill={saved ? "currentColor" : "none"}
+          className={saved ? "text-accent" : "text-white"}
+        />
+      </button>
+
+      {showLoginPrompt && (
+        <LoginPromptModal
+          message="Log in to save videos to your Favourites."
+          onClose={() => setShowLoginPrompt(false)}
+        />
+      )}
+    </>
   );
 }

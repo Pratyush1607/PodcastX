@@ -213,17 +213,38 @@ export async function getRunAgentTasks(runId: string): Promise<RunAgentTaskRow[]
   return data as RunAgentTaskRow[];
 }
 
+async function runHasSummaries(runId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("summaries")
+    .select("id, transcripts!inner(video_id, videos!inner(run_id))")
+    .eq("transcripts.videos.run_id", runId)
+    .limit(1);
+  if (error) throw error;
+  return (data?.length ?? 0) > 0;
+}
+
+/**
+ * Most recent completed/partial run that actually has at least one summary ready — a run can
+ * finish as 'partial' with only its research tasks having succeeded (e.g. two runs racing
+ * concurrently on the same process), which would otherwise get picked as "latest" and show
+ * every video as still processing. Falls back to the single most recent run if none qualify,
+ * rather than showing nothing.
+ */
 export async function getLatestRunId(type?: ContentType): Promise<string | null> {
   void type;
-  const { data, error } = await supabase
+  const { data: candidates, error } = await supabase
     .from("runs")
     .select("id")
     .in("status", ["completed", "partial"])
     .order("started_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .limit(5);
   if (error) throw error;
-  return data?.id ?? null;
+  if (!candidates || candidates.length === 0) return null;
+
+  for (const run of candidates) {
+    if (await runHasSummaries(run.id)) return run.id;
+  }
+  return candidates[0].id;
 }
 
 export interface ScopeVideo extends VideoRow {

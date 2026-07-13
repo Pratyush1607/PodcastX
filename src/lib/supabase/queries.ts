@@ -32,23 +32,15 @@ export async function finalizeRun(runId: string, status: RunStatus, errorSummary
   if (error) throw error;
 }
 
-// On Vercel, this runs on every serverless cold start — not just after a real crash/restart, since
-// a fresh Lambda instance boots for practically every request. Without a time floor, a run still
-// legitimately executing in a *different*, currently-alive instance gets falsely marked dead the
-// moment any other instance cold-starts. No single run should ever take this long for real.
-const STALE_RUN_THRESHOLD_MS = 20 * 60_000;
-
 export async function markStaleRunningRunsFailed() {
-  const staleBefore = new Date(Date.now() - STALE_RUN_THRESHOLD_MS).toISOString();
   const { error } = await supabase
     .from("runs")
     .update({
       status: "failed" satisfies RunStatus,
       completed_at: new Date().toISOString(),
-      error_summary: "Orphaned — still 'running' long after any real run would have finished",
+      error_summary: "Orphaned by server restart while run was in progress",
     })
-    .eq("status", "running")
-    .lt("started_at", staleBefore);
+    .eq("status", "running");
   if (error) throw error;
 }
 

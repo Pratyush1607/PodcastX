@@ -17,7 +17,7 @@ import type { ApiVideo } from "@/types/api";
 import type { CategorySlug } from "@/types/db";
 import { SummaryPanel } from "@/components/content/SummaryPanel";
 import { NotificationBell } from "@/components/content/NotificationBell";
-import { CATEGORY_LABEL_KEYS } from "@/lib/categoryLabels";
+import { CATEGORY_LABEL_KEYS } from "@/components/content/CategoryBar";
 import { useLocale } from "@/context/LocaleContext";
 
 const CATEGORY_ICONS: Record<Exclude<CategorySlug, "overall">, typeof Cpu> = {

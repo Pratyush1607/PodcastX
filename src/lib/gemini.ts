@@ -1,14 +1,17 @@
-import { GoogleGenAI, createUserContent, Type } from "@google/genai";
+import { GoogleGenAI, createPartFromUri, createUserContent, Type } from "@google/genai";
 import type { GenerateContentParameters } from "@google/genai";
+import { readFile, stat } from "node:fs/promises";
 import type { SummaryResult } from "@/agents/types";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 const TEXT_MODEL = "gemini-3.1-flash-lite";
 
+const INLINE_UPLOAD_THRESHOLD_BYTES = 15 * 1024 * 1024; // stay well under the 20MB inline request limit
+
 // Gemini's free tier caps gemini-2.5-flash at 5 requests/minute. Every call in this module goes
-// through generateContentWithRateLimit so transcription (video-URL fallback) and summarization
-// share one process-wide pacing queue instead of independently bursting past the quota.
+// through generateContentWithRateLimit so transcription (audio fallback) and summarization share
+// one process-wide pacing queue instead of independently bursting past the quota.
 const MAX_REQUESTS_PER_WINDOW = 4; // stay under the 5/min free-tier cap with headroom for clock skew
 const WINDOW_MS = 60_000;
 const recentCallTimestamps: number[] = [];
@@ -82,27 +85,20 @@ async function generateContentWithRateLimit(
   }
 }
 
-/**
- * Transcribes a YouTube video directly via Gemini's native video understanding (used as the
- * no-captions fallback). Gemini fetches the video itself given just the URL — no audio download,
- * no external binary, and no dependency on our own server's IP not being blocked by YouTube,
- * unlike the yt-dlp approach this replaced (which only worked from a local machine, never from
- * Vercel's serverless environment).
- *
- * Gemini's video understanding defaults to sampling 1 frame/second and caps out at 10,800 frames
- * total — i.e. videos over 3 hours get rejected outright. Since we only need the spoken audio,
- * not visual frames, `fps: 0.1` (1 frame/10s) raises that ceiling to 30 hours, comfortably above
- * any realistic podcast/interview length, without affecting audio transcription quality.
- */
-export async function transcribeYoutubeUrl(youtubeUrl: string): Promise<string> {
+/** Transcribes an audio file via Gemini's native audio understanding (used as the no-captions fallback). */
+export async function transcribeAudio(filePath: string, mimeType = "audio/mpeg"): Promise<string> {
+  const { size } = await stat(filePath);
+
+  const audioPart =
+    size <= INLINE_UPLOAD_THRESHOLD_BYTES
+      ? { inlineData: { data: (await readFile(filePath)).toString("base64"), mimeType } }
+      : createPartFromUri((await ai.files.upload({ file: filePath, config: { mimeType } })).uri!, mimeType);
+
   const response = await generateContentWithRateLimit({
     model: TEXT_MODEL,
     contents: createUserContent([
-      "Transcribe this video's spoken audio in full. Return only the spoken transcript text, no commentary or timestamps.",
-      {
-        fileData: { fileUri: youtubeUrl, mimeType: "video/*" },
-        videoMetadata: { fps: 0.1 },
-      },
+      "Transcribe this audio in full. Return only the spoken transcript text, no commentary or timestamps.",
+      audioPart,
     ]),
   });
 

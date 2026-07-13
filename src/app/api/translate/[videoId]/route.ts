@@ -4,10 +4,6 @@ import { translateContent } from "@/lib/gemini";
 import { isLocale, LOCALE_ENGLISH_NAMES } from "@/lib/locales";
 import { checkRateLimit, requestIp } from "@/lib/rateLimit";
 
-// This route is directly awaited by SummaryPanel and can involve Gemini's rate-limit queueing
-// plus retries, which can take a while under load — needs more than the platform default.
-export const maxDuration = 60;
-
 export async function GET(request: Request, { params }: { params: Promise<{ videoId: string }> }) {
   const { videoId } = await params;
   const locale = new URL(request.url).searchParams.get("locale") ?? "";

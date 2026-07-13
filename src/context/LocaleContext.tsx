@@ -12,7 +12,6 @@ interface LocaleContextValue {
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 function resolve(obj: unknown, path: string): unknown {
-  if (typeof path !== "string") return undefined;
   return path
     .split(".")
     .reduce<unknown>(
@@ -28,7 +27,7 @@ export function LocaleProvider({ locale, children }: { locale: Locale; children:
       locale,
       t: (key, vars) => {
         const raw = resolve(dictionary, key) ?? resolve(DICTIONARIES.en, key);
-        let str = typeof raw === "string" ? raw : (key ?? "");
+        let str = typeof raw === "string" ? raw : key;
         if (vars) {
           for (const [k, v] of Object.entries(vars)) str = str.split(`{${k}}`).join(String(v));
         }

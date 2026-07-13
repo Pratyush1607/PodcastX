@@ -2,7 +2,7 @@ import { executeRun, startRun } from "@/agents/pm";
 import { listRuns } from "@/lib/supabase/queries";
 import { isAdminAuthorized } from "@/lib/adminAuth";
 
-export const maxDuration = 800;
+export const maxDuration = 300;
 
 // Pipeline-management endpoint — not called by the frontend, and burns YouTube/Gemini quota on
 // every POST, so it must never be reachable by anonymous callers.

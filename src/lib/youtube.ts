@@ -29,8 +29,10 @@ export const QUERY_TERMS: Record<ContentType, Record<CategorySlug, string>> = {
   },
 };
 
-function sevenDaysAgoIso(): string {
-  return new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+function oneMonthAgoIso(): string {
+  const date = new Date();
+  date.setMonth(date.getMonth() - 1);
+  return date.toISOString();
 }
 
 /** YouTube Shorts top out at 3 minutes; anything at or under that is excluded so only long-form content is shown. */
@@ -45,14 +47,14 @@ function parseIsoDurationSeconds(duration: string | null | undefined): number {
   return (Number(hours) || 0) * 3600 + (Number(minutes) || 0) * 60 + (Number(seconds) || 0);
 }
 
-/** Searches YouTube for `query`, published in the last 7 days, and returns candidates sorted by view count desc. */
+/** Searches YouTube for `query`, published in the last month, and returns candidates sorted by view count desc. */
 export async function searchTopVideos(query: string, overfetch = 35): Promise<VideoCandidate[]> {
   const searchRes = await youtube.search.list({
     part: ["id"],
     q: query,
     type: ["video"],
     order: "viewCount",
-    publishedAfter: sevenDaysAgoIso(),
+    publishedAfter: oneMonthAgoIso(),
     maxResults: overfetch,
   });
 

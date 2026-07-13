@@ -1,4 +1,4 @@
-import { GoogleGenAI, createPartFromUri, createUserContent, Type } from "@google/genai";
+import { GoogleGenAI, createUserContent, Type } from "@google/genai";
 import type { GenerateContentParameters } from "@google/genai";
 import type { SummaryResult } from "@/agents/types";
 
@@ -88,13 +88,21 @@ async function generateContentWithRateLimit(
  * no external binary, and no dependency on our own server's IP not being blocked by YouTube,
  * unlike the yt-dlp approach this replaced (which only worked from a local machine, never from
  * Vercel's serverless environment).
+ *
+ * Gemini's video understanding defaults to sampling 1 frame/second and caps out at 10,800 frames
+ * total — i.e. videos over 3 hours get rejected outright. Since we only need the spoken audio,
+ * not visual frames, `fps: 0.1` (1 frame/10s) raises that ceiling to 30 hours, comfortably above
+ * any realistic podcast/interview length, without affecting audio transcription quality.
  */
 export async function transcribeYoutubeUrl(youtubeUrl: string): Promise<string> {
   const response = await generateContentWithRateLimit({
     model: TEXT_MODEL,
     contents: createUserContent([
       "Transcribe this video's spoken audio in full. Return only the spoken transcript text, no commentary or timestamps.",
-      createPartFromUri(youtubeUrl, "video/*"),
+      {
+        fileData: { fileUri: youtubeUrl, mimeType: "video/*" },
+        videoMetadata: { fps: 0.1 },
+      },
     ]),
   });
 

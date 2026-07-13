@@ -1,20 +1,14 @@
 import { fetchCaptions } from "@/lib/captions";
-import { downloadAudio } from "@/lib/ytDlp";
-import { transcribeAudio } from "@/lib/gemini";
+import { transcribeYoutubeUrl } from "@/lib/gemini";
 import type { TranscriptResult } from "@/agents/types";
 
-/** Agent 3: captions first, falling back to yt-dlp audio download + Gemini audio transcription. */
+/** Agent 3: captions first, falling back to Gemini transcribing the YouTube video directly. */
 export async function transcriber(youtubeVideoId: string): Promise<TranscriptResult> {
   const captions = await fetchCaptions(youtubeVideoId);
   if (captions) {
     return { source: "captions", language: captions.language, content: captions.content };
   }
 
-  const { filePath, cleanup } = await downloadAudio(youtubeVideoId);
-  try {
-    const content = await transcribeAudio(filePath);
-    return { source: "audio_gemini", content };
-  } finally {
-    await cleanup();
-  }
+  const content = await transcribeYoutubeUrl(`https://www.youtube.com/watch?v=${youtubeVideoId}`);
+  return { source: "audio_gemini", content };
 }

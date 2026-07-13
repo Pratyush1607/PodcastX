@@ -1,7 +1,7 @@
 import { executeRun, startRun } from "@/agents/pm";
 import { isAdminAuthorized } from "@/lib/adminAuth";
 
-export const maxDuration = 300;
+export const maxDuration = 800;
 
 async function runScheduled(request: Request) {
   if (!isAdminAuthorized(request)) {

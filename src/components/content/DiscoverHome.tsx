@@ -10,7 +10,7 @@ import { Hero } from "@/components/content/Hero";
 import { DiscoverSidePanel } from "@/components/content/DiscoverSidePanel";
 import { TopHostsRow } from "@/components/content/TopHostsRow";
 import { Row } from "@/components/content/Row";
-import { CATEGORY_LABEL_KEYS } from "@/components/content/CategoryBar";
+import { CATEGORY_LABEL_KEYS } from "@/lib/categoryLabels";
 import { getServerT } from "@/lib/serverTranslate";
 
 function greetingKey(): string {

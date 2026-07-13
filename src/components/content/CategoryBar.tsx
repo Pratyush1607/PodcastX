@@ -3,20 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CATEGORY_SLUGS } from "@/types/db";
-import type { CategorySlug, ContentType } from "@/types/db";
+import type { ContentType } from "@/types/db";
 import { useLocale } from "@/context/LocaleContext";
+import { CATEGORY_LABEL_KEYS } from "@/lib/categoryLabels";
 
 const SCOPES = ["overall", ...CATEGORY_SLUGS] as const;
-
-export const CATEGORY_LABEL_KEYS: Record<CategorySlug, string> = {
-  overall: "categoryBar.all",
-  tech_ai: "categoryBar.techAi",
-  science_education: "categoryBar.scienceEducation",
-  sports: "categoryBar.sports",
-  health_fitness: "categoryBar.healthFitness",
-  comedy: "categoryBar.comedy",
-  pop_internet_culture: "categoryBar.popInternetCulture",
-};
 
 export function CategoryBar({ type }: { type: ContentType }) {
   const pathname = usePathname();

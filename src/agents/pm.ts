@@ -8,13 +8,15 @@ import {
   createRun,
   finalizeRun,
   getRunAgentTasks,
+  getRunUnsummarizedTranscripts,
+  getRunUntranscribedVideos,
   insertPlacement,
   insertSummary,
   insertTranscript,
   trackAgent,
   upsertVideo,
 } from "@/lib/supabase/queries";
-import type { RunRow, TranscriptRow } from "@/types/db";
+import type { RunRow } from "@/types/db";
 import type { CategorySlug, ContentType, TriggerType } from "@/types/db";
 
 const RESEARCH_CONCURRENCY = 3;
@@ -30,8 +32,30 @@ export async function startRun(triggerType: TriggerType): Promise<RunRow> {
   return createRun(triggerType);
 }
 
-/** Executes the pipeline for an already-created run (research -> dedupe/placement -> transcribe -> summarize). */
-export async function executeRun(run: RunRow): Promise<void> {
+/**
+ * Fires the next phase. On Vercel each serverless invocation gets its own maxDuration budget
+ * (300s on this project's plan) — a full run needs more Gemini calls than comfortably fit in
+ * one invocation once the client-side rate limiter's pacing is accounted for, so each phase
+ * runs as an independent HTTP-triggered invocation instead of one long in-process chain.
+ * Locally there's no such limit, so the next phase just runs directly in the same process.
+ */
+async function triggerNextPhase(runId: string, phase: "transcribe" | "summarize"): Promise<void> {
+  if (!process.env.VERCEL) {
+    if (phase === "transcribe") await executeTranscriptionPhase(runId);
+    else await executeSummarizationPhase(runId);
+    return;
+  }
+
+  const host = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? process.env.VERCEL_URL;
+  const secret = process.env.CRON_SECRET;
+  await fetch(`https://${host}/api/runs/${runId}/${phase}`, {
+    method: "POST",
+    headers: secret ? { Authorization: `Bearer ${secret}` } : {},
+  });
+}
+
+/** Phase 1: research every scope, dedupe candidates into unique videos, record scope/rank placements. */
+export async function executeResearchPhase(run: RunRow): Promise<void> {
   try {
     const researchJobs: ResearchJob[] = ALL_SCOPES.flatMap((scope) => [
       { type: "podcast" as const, scope },
@@ -53,7 +77,6 @@ export async function executeRun(run: RunRow): Promise<void> {
     // Dedupe candidates into unique videos (same video can rank in both 'overall' and its category),
     // recording every scope/rank it placed in via video_placements.
     const videoIdByKey = new Map<string, string>();
-    const uniqueVideos: { id: string; youtubeVideoId: string }[] = [];
 
     for (const result of researchResults) {
       if (!result) continue;
@@ -75,33 +98,53 @@ export async function executeRun(run: RunRow): Promise<void> {
           });
           videoId = video.id;
           videoIdByKey.set(key, videoId);
-          uniqueVideos.push({ id: videoId, youtubeVideoId: candidate.youtubeVideoId });
         }
         await insertPlacement(videoId, result.job.scope, i + 1);
       }
     }
 
-    const transcriptResults = await promisePool(uniqueVideos, AGENT_CONCURRENCY, async (video) => {
+    await triggerNextPhase(run.id, "transcribe");
+  } catch (err) {
+    await finalizeRun(run.id, "failed", err instanceof Error ? err.message : String(err));
+  }
+}
+
+/**
+ * Phase 2: transcribe every unique video from this run that doesn't have a transcript yet.
+ * Re-fetches the video list from the DB rather than receiving it in-memory, so this phase can
+ * run as its own separate invocation (or safely retry) independent of phase 1's process.
+ */
+export async function executeTranscriptionPhase(runId: string): Promise<void> {
+  try {
+    const videos = await getRunUntranscribedVideos(runId);
+
+    await promisePool(videos, AGENT_CONCURRENCY, async (video) => {
       const transcriptResult = await trackAgent(
-        { runId: run.id, agent: "transcriber", videoId: video.id },
+        { runId, agent: "transcriber", videoId: video.id },
         () => transcriber(video.youtubeVideoId)
       );
       if (!transcriptResult) return null;
-      const transcript = await insertTranscript({
+      return insertTranscript({
         videoId: video.id,
         source: transcriptResult.source,
         language: transcriptResult.language,
         content: transcriptResult.content,
       });
-      return { videoId: video.id, transcript };
     });
 
-    const successfulTranscripts = transcriptResults.filter(
-      (r): r is { videoId: string; transcript: TranscriptRow } => r !== null
-    );
+    await triggerNextPhase(runId, "summarize");
+  } catch (err) {
+    await finalizeRun(runId, "failed", err instanceof Error ? err.message : String(err));
+  }
+}
 
-    await promisePool(successfulTranscripts, AGENT_CONCURRENCY, async ({ videoId, transcript }) => {
-      const summaryResult = await trackAgent({ runId: run.id, agent: "summarizer", videoId }, () =>
+/** Phase 3: summarize every transcript from this run that doesn't have a summary yet, then finalize the run. */
+export async function executeSummarizationPhase(runId: string): Promise<void> {
+  try {
+    const transcripts = await getRunUnsummarizedTranscripts(runId);
+
+    await promisePool(transcripts, AGENT_CONCURRENCY, async ({ videoId, transcript }) => {
+      const summaryResult = await trackAgent({ runId, agent: "summarizer", videoId }, () =>
         summarizer(transcript.content)
       );
       if (!summaryResult) return null;
@@ -114,19 +157,20 @@ export async function executeRun(run: RunRow): Promise<void> {
       });
     });
 
-    const tasks = await getRunAgentTasks(run.id);
+    const tasks = await getRunAgentTasks(runId);
     const hasSucceeded = tasks.some((t) => t.status === "succeeded");
     const hasFailed = tasks.some((t) => t.status === "failed");
     const status = !hasSucceeded ? "failed" : hasFailed ? "partial" : "completed";
-    await finalizeRun(run.id, status);
+    await finalizeRun(runId, status);
   } catch (err) {
-    await finalizeRun(run.id, "failed", err instanceof Error ? err.message : String(err));
+    await finalizeRun(runId, "failed", err instanceof Error ? err.message : String(err));
   }
 }
 
-/** Convenience wrapper for scripts/cron: creates the run and awaits full completion. */
+/** Convenience wrapper for local scripts/cron: creates the run and awaits full completion (only
+ *  meaningful locally, where every phase runs in-process with no time limit). */
 export async function runPipeline(triggerType: TriggerType): Promise<string> {
   const run = await startRun(triggerType);
-  await executeRun(run);
+  await executeResearchPhase(run);
   return run.id;
 }

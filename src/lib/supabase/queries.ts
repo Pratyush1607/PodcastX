@@ -32,15 +32,23 @@ export async function finalizeRun(runId: string, status: RunStatus, errorSummary
   if (error) throw error;
 }
 
+// On Vercel, this runs on every serverless cold start — not just after a real crash/restart, since
+// a fresh Lambda instance boots for practically every request. Without a time floor, a run still
+// legitimately executing in a *different*, currently-alive instance gets falsely marked dead the
+// moment any other instance cold-starts. No single run should ever take this long for real.
+const STALE_RUN_THRESHOLD_MS = 20 * 60_000;
+
 export async function markStaleRunningRunsFailed() {
+  const staleBefore = new Date(Date.now() - STALE_RUN_THRESHOLD_MS).toISOString();
   const { error } = await supabase
     .from("runs")
     .update({
       status: "failed" satisfies RunStatus,
       completed_at: new Date().toISOString(),
-      error_summary: "Orphaned by server restart while run was in progress",
+      error_summary: "Orphaned — still 'running' long after any real run would have finished",
     })
-    .eq("status", "running");
+    .eq("status", "running")
+    .lt("started_at", staleBefore);
   if (error) throw error;
 }
 
@@ -407,4 +415,36 @@ export async function saveTitleTranslation(videoId: string, locale: string, titl
     .from("content_translations")
     .upsert({ video_id: videoId, locale, translated_title: title }, { onConflict: "video_id,locale" });
   if (error) throw error;
+}
+
+/**
+ * Unique videos from this run that don't have a transcript yet — lets the transcription phase
+ * resume from wherever the research phase (a separate serverless invocation) left off, rather
+ * than needing in-memory state passed between phases.
+ */
+export async function getRunUntranscribedVideos(
+  runId: string
+): Promise<{ id: string; youtubeVideoId: string }[]> {
+  const { data, error } = await supabase
+    .from("videos")
+    .select("id, youtube_video_id, transcripts(id)")
+    .eq("run_id", runId);
+  if (error) throw error;
+  return (data ?? [])
+    .filter((v) => !(v.transcripts as unknown[] | null)?.length)
+    .map((v) => ({ id: v.id as string, youtubeVideoId: v.youtube_video_id as string }));
+}
+
+/** Transcripts from this run's videos that don't have a summary yet — same resumability purpose as above. */
+export async function getRunUnsummarizedTranscripts(
+  runId: string
+): Promise<{ videoId: string; transcript: TranscriptRow }[]> {
+  const { data, error } = await supabase
+    .from("transcripts")
+    .select("*, videos!inner(run_id), summaries(id)")
+    .eq("videos.run_id", runId);
+  if (error) throw error;
+  return (data ?? [])
+    .filter((t) => !(t.summaries as unknown[] | null)?.length)
+    .map((t) => ({ videoId: t.video_id as string, transcript: t as unknown as TranscriptRow }));
 }

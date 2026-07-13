@@ -1,4 +1,5 @@
-import { executeRun, startRun } from "@/agents/pm";
+import { after } from "next/server";
+import { executeResearchPhase, startRun } from "@/agents/pm";
 import { isAdminAuthorized } from "@/lib/adminAuth";
 
 export const maxDuration = 300;
@@ -8,7 +9,13 @@ async function runScheduled(request: Request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
   const run = await startRun("scheduled");
-  await executeRun(run);
+
+  if (process.env.VERCEL) {
+    after(() => executeResearchPhase(run));
+  } else {
+    await executeResearchPhase(run);
+  }
+
   return Response.json({ runId: run.id });
 }
 

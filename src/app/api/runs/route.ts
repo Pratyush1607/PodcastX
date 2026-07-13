@@ -1,4 +1,5 @@
-import { executeRun, startRun } from "@/agents/pm";
+import { after } from "next/server";
+import { executeResearchPhase, startRun } from "@/agents/pm";
 import { listRuns } from "@/lib/supabase/queries";
 import { isAdminAuthorized } from "@/lib/adminAuth";
 
@@ -21,10 +22,15 @@ export async function POST(request: Request) {
 
   const run = await startRun("manual");
 
-  // Serverless functions don't survive after the response is sent, so the run must be
-  // awaited here rather than fired-and-forgotten (as it is when running a persistent
-  // Node process locally).
-  await executeRun(run);
+  if (process.env.VERCEL) {
+    // Each phase (research/transcribe/summarize) runs as its own serverless invocation with its
+    // own fresh time budget — see triggerNextPhase() in pm.ts. Kick off phase 1 in the
+    // background and respond immediately rather than holding this request open for the whole run.
+    after(() => executeResearchPhase(run));
+  } else {
+    // Locally there's no serverless time limit, so just await the whole chain for easy testing.
+    await executeResearchPhase(run);
+  }
 
   return Response.json({ runId: run.id });
 }

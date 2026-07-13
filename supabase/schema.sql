@@ -158,3 +158,21 @@ create policy "Users can add videos to their own playlists"
 create policy "Users can remove videos from their own playlists"
   on playlist_videos for delete
   using (exists (select 1 from playlists p where p.id = playlist_videos.playlist_id and p.user_id = auth.uid()));
+
+-- Cached Gemini translations of a video's title/summary into a given locale, shared across all
+-- users (translating the same video into the same language always produces the same result, so
+-- caching here avoids re-translating on every request against Gemini's free-tier quota).
+create table content_translations (
+  id uuid primary key default gen_random_uuid(),
+  video_id uuid not null references videos(id) on delete cascade,
+  locale text not null,
+  translated_title text not null,
+  translated_summary_text text,
+  translated_key_points jsonb,
+  translated_notable_quotes jsonb,
+  translated_topics jsonb,
+  created_at timestamptz not null default now(),
+  unique (video_id, locale)
+);
+
+create index idx_content_translations_video_id on content_translations(video_id);

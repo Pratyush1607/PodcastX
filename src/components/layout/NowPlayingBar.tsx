@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { MoreHorizontal, Pause, Play, SkipBack, SkipForward } from "lucide-react";
 import { GLOBAL_PLAYER_ELEMENT_ID, usePlayer } from "@/context/PlayerContext";
 import { isDiscoverHomeRoute } from "@/lib/discoverRoutes";
+import { useLocale } from "@/context/LocaleContext";
 
 const BAR_COUNT = 40;
 
@@ -33,6 +34,7 @@ export function NowPlayingBar() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -72,7 +74,7 @@ export function NowPlayingBar() {
               <p className="truncate text-xs text-muted">{current.channelName}</p>
             </>
           ) : (
-            <p className="truncate text-sm text-muted">Nothing playing</p>
+            <p className="truncate text-sm text-muted">{t("player.nothingPlaying")}</p>
           )}
         </div>
 
@@ -80,7 +82,7 @@ export function NowPlayingBar() {
           <button
             onClick={previous}
             disabled={!hasQueue}
-            title="Previous"
+            title={t("player.previous")}
             className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-white/10 hover:text-foreground disabled:opacity-30"
           >
             <SkipBack size={16} />
@@ -97,7 +99,7 @@ export function NowPlayingBar() {
           <button
             onClick={next}
             disabled={!hasQueue}
-            title="Next"
+            title={t("player.next")}
             className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition hover:bg-white/10 hover:text-foreground disabled:opacity-30"
           >
             <SkipForward size={16} />
@@ -122,7 +124,7 @@ export function NowPlayingBar() {
                 }}
                 className="block w-full rounded-lg px-3 py-2 text-left text-sm text-muted transition hover:bg-white/10 hover:text-foreground"
               >
-                Stop playback
+                {t("player.stopPlayback")}
               </button>
             </div>
           )}

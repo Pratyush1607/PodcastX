@@ -6,10 +6,12 @@ import type { ApiVideo } from "@/types/api";
 import { SummaryPanel } from "@/components/content/SummaryPanel";
 import { usePlayer } from "@/context/PlayerContext";
 import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
+import { useLocale } from "@/context/LocaleContext";
 
 export function TopHostsRow({ videos, savedVideoIds }: { videos: ApiVideo[]; savedVideoIds: Set<string> }) {
   const [selected, setSelected] = useState<ApiVideo | null>(null);
   const { current, playing, play, togglePlay } = usePlayer();
+  const { t } = useLocale();
 
   const hosts = useMemo(() => {
     const seen = new Set<string>();
@@ -36,7 +38,7 @@ export function TopHostsRow({ videos, savedVideoIds }: { videos: ApiVideo[]; sav
 
   return (
     <div>
-      <h3 className="mb-4 text-xl font-bold">Top hosts</h3>
+      <h3 className="mb-4 text-xl font-bold">{t("home.topHosts")}</h3>
       <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
         {hosts.map((video) => (
           <div

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ListMusic, Plus, Trash2 } from "lucide-react";
+import { useLocale } from "@/context/LocaleContext";
 
 interface PlaylistSummary {
   id: string;
@@ -14,6 +15,7 @@ export function PlaylistsList({ initialPlaylists }: { initialPlaylists: Playlist
   const [playlists, setPlaylists] = useState(initialPlaylists);
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
+  const { t } = useLocale();
 
   async function createPlaylist(e: React.FormEvent) {
     e.preventDefault();
@@ -43,7 +45,7 @@ export function PlaylistsList({ initialPlaylists }: { initialPlaylists: Playlist
         <input
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
-          placeholder="New playlist name"
+          placeholder={t("playlists.newPlaylistName")}
           className="w-full min-w-0 rounded-full border border-border bg-surface px-4 py-2.5 text-sm outline-none focus:border-accent"
         />
         <button
@@ -52,12 +54,12 @@ export function PlaylistsList({ initialPlaylists }: { initialPlaylists: Playlist
           className="flex shrink-0 items-center gap-1.5 rounded-full bg-accent px-4 py-2.5 text-sm font-bold text-accent-ink transition hover:brightness-105 disabled:opacity-50"
         >
           <Plus size={16} />
-          Create
+          {t("playlists.create")}
         </button>
       </form>
 
       {playlists.length === 0 ? (
-        <p className="text-muted">You haven&apos;t created any playlists yet.</p>
+        <p className="text-muted">{t("playlists.noPlaylistsYet")}</p>
       ) : (
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {playlists.map((playlist) => (
@@ -72,13 +74,13 @@ export function PlaylistsList({ initialPlaylists }: { initialPlaylists: Playlist
                 <div className="min-w-0">
                   <p className="truncate font-semibold">{playlist.name}</p>
                   <p className="text-xs text-muted">
-                    {playlist.videoCount} {playlist.videoCount === 1 ? "video" : "videos"}
+                    {playlist.videoCount} {t(playlist.videoCount === 1 ? "playlists.video" : "playlists.videos")}
                   </p>
                 </div>
               </Link>
               <button
                 onClick={() => deletePlaylist(playlist.id)}
-                title="Delete playlist"
+                title={t("playlists.deletePlaylist")}
                 className="shrink-0 rounded-lg p-2 text-muted opacity-0 transition group-hover:opacity-100 hover:text-red-400"
               >
                 <Trash2 size={16} />

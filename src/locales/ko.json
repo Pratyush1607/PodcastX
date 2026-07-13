@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "메뉴",
+    "library": "라이브러리",
+    "podcasts": "팟캐스트",
+    "interviews": "인터뷰",
+    "favourites": "즐겨찾기",
+    "playlists": "재생목록",
+    "goToPremium": "프리미엄으로 이동",
+    "logOut": "로그아웃",
+    "logIn": "로그인"
+  },
+  "header": {
+    "discoverPodcasts": "팟캐스트 탐색",
+    "discoverInterviews": "인터뷰 탐색",
+    "favourites": "즐겨찾기",
+    "playlists": "재생목록"
+  },
+  "home": {
+    "goodMorning": "좋은 아침입니다",
+    "goodAfternoon": "즐거운 오후입니다",
+    "goodEvening": "좋은 저녁입니다",
+    "makeAPlaylist": "재생목록 만들기",
+    "trending": "트렌드",
+    "topHosts": "인기 호스트",
+    "trendingPodcasts": "인기 팟캐스트",
+    "trendingInterviews": "인기 인터뷰",
+    "viewAll": "모두 보기",
+    "noContentYet": "이번 주의 인기 {kind}는 아직 연구되지 않았습니다. 잠시 후 다시 확인해 주세요.",
+    "podcastForYou": "당신을 위한 팟캐스트",
+    "interviewForYou": "당신을 위한 인터뷰",
+    "trendingBadge": "#{rank}위 트렌드"
+  },
+  "sidePanel": {
+    "searchHere": "검색",
+    "recentlySaved": "최근 저장한 항목",
+    "viewAll": "모두 보기",
+    "nothingSavedYet": "아직 저장된 항목이 없습니다.",
+    "categories": "카테고리",
+    "comingSoon": "준비 중"
+  },
+  "notifications": {
+    "recentlySaved": "최근 저장한 항목",
+    "nothingSavedYet": "아직 저장된 항목이 없습니다. 동영상의 북마크 아이콘을 눌러 여기에 추가하세요.",
+    "clearAll": "모두 지우기",
+    "viewAllFavourites": "모든 즐겨찾기 보기",
+    "dismiss": "닫기"
+  },
+  "categoryBar": {
+    "all": "전체",
+    "techAi": "기술 및 AI",
+    "scienceEducation": "과학 및 교육",
+    "sports": "스포츠",
+    "healthFitness": "건강 및 피트니스",
+    "comedy": "코미디",
+    "popInternetCulture": "팝 및 인터넷 문화"
+  },
+  "video": {
+    "processing": "처리 중",
+    "views": "조회수",
+    "noVideosFound": "아직 내용이 없습니다. 이번 주에 더 많은 콘텐츠를 찾을 예정이니 잠시 후 다시 확인해 주세요.",
+    "noVideosInPlaylist": "이 재생목록에는 아직 동영상이 없습니다.",
+    "removeFromPlaylist": "재생목록에서 제거",
+    "addToPlaylist": "재생목록에 추가",
+    "newPlaylist": "새 재생목록",
+    "noPlaylistsYet": "재생목록이 아직 없습니다. 아래에서 하나 만들어 보세요.",
+    "saveToFavourites": "즐겨찾기에 저장",
+    "removeFromFavourites": "즐겨찾기에서 제거",
+    "loading": "불러오는 중…"
+  },
+  "summary": {
+    "playEpisode": "에피소드 재생",
+    "playing": "재생 중",
+    "paused": "일시 정지됨",
+    "keyPoints": "핵심 포인트",
+    "notableQuotes": "주요 인용구",
+    "watchOnYouTube": "YouTube에서 보기",
+    "summaryNotReady": "요약이 아직 준비되지 않았습니다. 동영상 처리가 완료된 후 다시 확인해 주세요.",
+    "showOriginal": "원본 보기",
+    "showTranslated": "번역 보기",
+    "translating": "번역 중…"
+  },
+  "player": {
+    "nothingPlaying": "재생 중 아님",
+    "previous": "이전",
+    "next": "다음",
+    "stopPlayback": "재생 중지"
+  },
+  "playlists": {
+    "title": "재생목록",
+    "newPlaylistName": "새 재생목록 이름",
+    "create": "만들기",
+    "noPlaylistsYet": "아직 생성한 재생목록이 없습니다.",
+    "deletePlaylist": "재생목록 삭제",
+    "deleteConfirm": "이 재생목록을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+    "logInToCreate": "로그인하여 팟캐스트와 인터뷰 재생목록을 만드세요.",
+    "video": "동영상",
+    "videos": "동영상"
+  },
+  "favourites": {
+    "title": "즐겨찾기",
+    "logInToSave": "로그인하여 팟캐스트와 인터뷰를 즐겨찾기에 저장하세요.",
+    "nothingSavedYet": "아직 저장된 항목이 없습니다. 팟캐스트나 인터뷰의 북마크 아이콘을 눌러 여기에 추가하세요."
+  },
+  "auth": {
+    "logIn": "로그인",
+    "signUp": "회원가입",
+    "email": "이메일",
+    "password": "비밀번호",
+    "welcomeBack": "PodcastX에 오신 것을 환영합니다.",
+    "createAccount": "계정 만들기",
+    "dontHaveAccount": "계정이 없으신가요?",
+    "alreadyHaveAccount": "이미 계정이 있으신가요?",
+    "logInRequired": "로그인이 필요합니다",
+    "logInToSaveFavourites": "로그인하여 즐겨찾기에 동영상을 저장하세요.",
+    "logInToAddPlaylist": "로그인하여 재생목록에 동영상을 추가하세요.",
+    "notNow": "나중에 하기",
+    "createAccountDescription": "PodcastX 계정을 만들어 나중에 볼 동영상을 저장하세요.",
+    "continueBrowsing": "계정 없이 계속 탐색하기"
+  },
+  "common": {
+    "settings": "설정"
+  },
+  "time": {
+    "minAgo": "{n}분 전",
+    "hrAgo": "{n}시간 전",
+    "dAgo": "{n}일 전"
+  },
+  "profile": {
+    "memberSince": "가입일",
+    "signOut": "로그아웃",
+    "plans": "플랜",
+    "free": "무료",
+    "freeDescription": "탐색, 저장 및 재생목록 생성 — 무료 이용 가능.",
+    "current": "현재",
+    "pro": "프로",
+    "proDescription": "추후 업데이트 예정.",
+    "comingSoon": "준비 중",
+    "language": "언어",
+    "languageDescription": "PodcastX 표시 언어를 선택하세요. 동영상 제목과 요약본을 해당 언어로 번역할 수 있습니다."
+  }
+}

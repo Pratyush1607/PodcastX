@@ -17,6 +17,8 @@ import type { ApiVideo } from "@/types/api";
 import type { CategorySlug } from "@/types/db";
 import { SummaryPanel } from "@/components/content/SummaryPanel";
 import { NotificationBell } from "@/components/content/NotificationBell";
+import { CATEGORY_LABEL_KEYS } from "@/components/content/CategoryBar";
+import { useLocale } from "@/context/LocaleContext";
 
 const CATEGORY_ICONS: Record<Exclude<CategorySlug, "overall">, typeof Cpu> = {
   tech_ai: Cpu,
@@ -27,14 +29,14 @@ const CATEGORY_ICONS: Record<Exclude<CategorySlug, "overall">, typeof Cpu> = {
   pop_internet_culture: Globe,
 };
 
-function formatRelativeTime(iso: string): string {
+function formatRelativeTime(iso: string, t: (key: string, vars?: Record<string, string | number>) => string): string {
   const diffMs = Date.now() - new Date(iso).getTime();
   const minutes = Math.max(1, Math.round(diffMs / 60000));
-  if (minutes < 60) return `${minutes} min ago`;
+  if (minutes < 60) return t("time.minAgo", { n: minutes });
   const hours = Math.round(minutes / 60);
-  if (hours < 24) return `${hours} hr ago`;
+  if (hours < 24) return t("time.hrAgo", { n: hours });
   const days = Math.round(hours / 24);
-  return `${days}d ago`;
+  return t("time.dAgo", { n: days });
 }
 
 export function DiscoverSidePanel({
@@ -55,6 +57,7 @@ export function DiscoverSidePanel({
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<ApiVideo | null>(null);
   const [selectedQueue, setSelectedQueue] = useState<ApiVideo[]>([]);
+  const { t } = useLocale();
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -70,7 +73,7 @@ export function DiscoverSidePanel({
         <div className="flex items-center justify-end gap-2">
           <Link
             href="/profile"
-            title="Settings"
+            title={t("common.settings")}
             className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition hover:bg-surface hover:text-foreground"
           >
             <Settings size={17} />
@@ -91,7 +94,7 @@ export function DiscoverSidePanel({
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search here"
+          placeholder={t("sidePanel.searchHere")}
           className="w-full rounded-full border border-border bg-surface py-2.5 pr-11 pl-11 text-sm outline-none focus:border-accent"
         />
         <SlidersHorizontal size={16} className="absolute top-1/2 right-4 -translate-y-1/2 text-muted" />
@@ -128,13 +131,15 @@ export function DiscoverSidePanel({
 
       <div>
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-xs font-bold tracking-[0.15em] text-muted uppercase">Recently saved</h3>
+          <h3 className="text-xs font-bold tracking-[0.15em] text-muted uppercase">
+            {t("sidePanel.recentlySaved")}
+          </h3>
           <Link href="/favourites" className="text-xs font-semibold text-accent hover:brightness-110">
-            View all
+            {t("sidePanel.viewAll")}
           </Link>
         </div>
         {recentSaves.length === 0 ? (
-          <p className="text-sm text-muted">Nothing saved yet.</p>
+          <p className="text-sm text-muted">{t("sidePanel.nothingSavedYet")}</p>
         ) : (
           <div className="flex flex-col gap-1">
             {recentSaves.map(({ video, savedAt }) => (
@@ -159,7 +164,7 @@ export function DiscoverSidePanel({
                   <p className="truncate text-xs text-muted">{video.channel_name}</p>
                 </div>
                 <span className="shrink-0 text-[11px] whitespace-nowrap text-muted">
-                  {formatRelativeTime(savedAt)}
+                  {formatRelativeTime(savedAt, t)}
                 </span>
               </button>
             ))}
@@ -168,7 +173,9 @@ export function DiscoverSidePanel({
       </div>
 
       <div>
-        <h3 className="mb-3 text-xs font-bold tracking-[0.15em] text-muted uppercase">Categories</h3>
+        <h3 className="mb-3 text-xs font-bold tracking-[0.15em] text-muted uppercase">
+          {t("sidePanel.categories")}
+        </h3>
         <div className="relative">
           <div className="grid grid-cols-3 gap-3 pointer-events-none blur-sm select-none">
             {genres.map((genre) => {
@@ -182,7 +189,7 @@ export function DiscoverSidePanel({
                     {Icon && <Icon size={16} />}
                   </span>
                   <span className="w-full truncate text-center text-[11px] font-semibold text-muted">
-                    {genre.label}
+                    {t(CATEGORY_LABEL_KEYS[genre.scope])}
                   </span>
                 </div>
               );
@@ -190,7 +197,7 @@ export function DiscoverSidePanel({
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="rounded-full bg-surface px-4 py-1.5 text-xs font-bold text-foreground shadow-xl">
-              Coming soon
+              {t("sidePanel.comingSoon")}
             </span>
           </div>
         </div>

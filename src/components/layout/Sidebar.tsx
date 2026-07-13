@@ -5,15 +5,16 @@ import { usePathname } from "next/navigation";
 import { Podcast, Mic2, Heart, ListMusic, Crown, LogOut, MoreHorizontal, X } from "lucide-react";
 import { signOut } from "@/app/actions/auth";
 import { useMobileNav } from "@/context/MobileNavContext";
+import { useLocale } from "@/context/LocaleContext";
 
 const MENU_ITEMS = [
-  { key: "podcasts", href: "/podcasts", label: "Podcasts", icon: Podcast },
-  { key: "interviews", href: "/interviews", label: "Interviews", icon: Mic2 },
+  { key: "podcasts", href: "/podcasts", labelKey: "sidebar.podcasts", icon: Podcast },
+  { key: "interviews", href: "/interviews", labelKey: "sidebar.interviews", icon: Mic2 },
 ] as const;
 
 const LIBRARY_ITEMS = [
-  { key: "favourites", href: "/favourites", label: "Favourites", icon: Heart },
-  { key: "playlists", href: "/playlists", label: "Playlists", icon: ListMusic },
+  { key: "favourites", href: "/favourites", labelKey: "sidebar.favourites", icon: Heart },
+  { key: "playlists", href: "/playlists", labelKey: "sidebar.playlists", icon: ListMusic },
 ] as const;
 
 function NavGroup({
@@ -22,9 +23,11 @@ function NavGroup({
   pathname,
 }: {
   heading: string;
-  items: readonly { key: string; href: string; label: string; icon: typeof Podcast }[];
+  items: readonly { key: string; href: string; labelKey: string; icon: typeof Podcast }[];
   pathname: string | null;
 }) {
+  const { t } = useLocale();
+
   return (
     <div>
       <div className="mb-2 flex items-center justify-between px-3">
@@ -32,7 +35,7 @@ function NavGroup({
         <MoreHorizontal size={15} className="text-muted" />
       </div>
       <nav className="flex flex-col gap-1">
-        {items.map(({ key, href, label, icon: Icon }) => {
+        {items.map(({ key, href, labelKey, icon: Icon }) => {
           const active = pathname?.startsWith(href);
           return (
             <Link
@@ -43,7 +46,7 @@ function NavGroup({
               }`}
             >
               <Icon size={19} strokeWidth={1.75} />
-              {label}
+              {t(labelKey)}
             </Link>
           );
         })}
@@ -55,6 +58,7 @@ function NavGroup({
 export function Sidebar({ userEmail }: { userEmail: string | null }) {
   const pathname = usePathname();
   const { open, close } = useMobileNav();
+  const { t } = useLocale();
 
   return (
     <>
@@ -83,8 +87,8 @@ export function Sidebar({ userEmail }: { userEmail: string | null }) {
         </div>
 
       <div className="mt-8 flex flex-col gap-8">
-        <NavGroup heading="Menu" items={MENU_ITEMS} pathname={pathname} />
-        <NavGroup heading="Library" items={LIBRARY_ITEMS} pathname={pathname} />
+        <NavGroup heading={t("sidebar.menu")} items={MENU_ITEMS} pathname={pathname} />
+        <NavGroup heading={t("sidebar.library")} items={LIBRARY_ITEMS} pathname={pathname} />
       </div>
 
       <div className="mt-auto flex flex-col gap-3 pt-8">
@@ -95,7 +99,7 @@ export function Sidebar({ userEmail }: { userEmail: string | null }) {
               className="flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-bold text-accent-ink transition hover:brightness-105"
             >
               <Crown size={16} />
-              Go to Premium
+              {t("sidebar.goToPremium")}
             </Link>
             <form action={signOut}>
               <button
@@ -103,7 +107,7 @@ export function Sidebar({ userEmail }: { userEmail: string | null }) {
                 className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-muted transition hover:bg-surface hover:text-foreground"
               >
                 <LogOut size={19} strokeWidth={1.75} />
-                Log out
+                {t("sidebar.logOut")}
               </button>
             </form>
           </>
@@ -112,7 +116,7 @@ export function Sidebar({ userEmail }: { userEmail: string | null }) {
             href="/login"
             className="flex items-center justify-center rounded-full bg-accent px-4 py-2.5 text-sm font-bold text-accent-ink transition hover:brightness-105"
           >
-            Log in
+            {t("sidebar.logIn")}
           </Link>
         )}
       </div>

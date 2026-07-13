@@ -4,11 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Bell, X } from "lucide-react";
 import type { ApiVideo } from "@/types/api";
+import { useLocale } from "@/context/LocaleContext";
 
 export function NotificationBell({ recentSaves }: { recentSaves: ApiVideo[] }) {
   const [open, setOpen] = useState(false);
   const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!open) return;
@@ -44,20 +46,20 @@ export function NotificationBell({ recentSaves }: { recentSaves: ApiVideo[] }) {
       {open && (
         <div className="absolute top-12 right-0 left-auto z-30 w-72 max-w-[80vw] rounded-2xl bg-surface p-2 shadow-xl sm:w-80 lg:fixed lg:top-20 lg:right-6 lg:w-[272px] lg:max-w-none">
           <div className="flex items-center justify-between px-3 pt-2 pb-1">
-            <p className="text-xs font-bold tracking-[0.15em] text-muted uppercase">Recently saved</p>
+            <p className="text-xs font-bold tracking-[0.15em] text-muted uppercase">
+              {t("notifications.recentlySaved")}
+            </p>
             {visibleSaves.length > 0 && (
               <button
                 onClick={dismissAll}
                 className="text-xs font-semibold text-muted transition hover:text-foreground"
               >
-                Clear all
+                {t("notifications.clearAll")}
               </button>
             )}
           </div>
           {visibleSaves.length === 0 ? (
-            <p className="px-3 py-4 text-sm text-muted">
-              Nothing saved yet — tap the bookmark icon on a video to add it here.
-            </p>
+            <p className="px-3 py-4 text-sm text-muted">{t("notifications.nothingSavedYet")}</p>
           ) : (
             <div className="flex flex-col">
               {visibleSaves.map((video) => (
@@ -85,7 +87,7 @@ export function NotificationBell({ recentSaves }: { recentSaves: ApiVideo[] }) {
                   </Link>
                   <button
                     onClick={() => dismiss(video.id)}
-                    title="Dismiss"
+                    title={t("notifications.dismiss")}
                     className="mr-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-muted opacity-0 transition group-hover:opacity-100 hover:bg-white/10 hover:text-foreground"
                   >
                     <X size={14} />
@@ -99,7 +101,7 @@ export function NotificationBell({ recentSaves }: { recentSaves: ApiVideo[] }) {
             onClick={() => setOpen(false)}
             className="mt-1 block rounded-xl px-3 py-2 text-center text-xs font-semibold text-accent transition hover:bg-surface-hover"
           >
-            View all Favourites
+            {t("notifications.viewAllFavourites")}
           </Link>
         </div>
       )}

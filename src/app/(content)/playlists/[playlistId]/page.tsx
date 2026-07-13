@@ -2,8 +2,10 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getVideosByIds } from "@/lib/supabase/queries";
 import { getSavedVideoIdSet } from "@/lib/watchLater";
+import { withTranslatedTitles } from "@/lib/translateTitles";
 import { PlaylistVideoList } from "@/components/content/PlaylistVideoList";
 import { DeletePlaylistButton } from "@/components/content/DeletePlaylistButton";
+import { getServerT } from "@/lib/serverTranslate";
 
 export const dynamic = "force-dynamic";
 
@@ -26,16 +28,18 @@ export default async function PlaylistDetailPage({
     .single();
   if (!playlist) notFound();
 
-  const [{ data: playlistVideos }, savedVideoIds] = await Promise.all([
+  const [{ data: playlistVideos }, savedVideoIds, { locale }] = await Promise.all([
     supabase
       .from("playlist_videos")
       .select("video_id")
       .eq("playlist_id", playlistId)
       .order("created_at", { ascending: false }),
     getSavedVideoIdSet(),
+    getServerT(),
   ]);
 
   const videos = await getVideosByIds((playlistVideos ?? []).map((row) => row.video_id));
+  const translatedVideos = await withTranslatedTitles(videos, locale);
 
   return (
     <div className="px-8 py-6">
@@ -43,7 +47,7 @@ export default async function PlaylistDetailPage({
         <h2 className="text-2xl font-bold">{playlist.name}</h2>
         <DeletePlaylistButton playlistId={playlist.id} />
       </div>
-      <PlaylistVideoList playlistId={playlistId} initialVideos={videos} savedVideoIds={savedVideoIds} />
+      <PlaylistVideoList playlistId={playlistId} initialVideos={translatedVideos} savedVideoIds={savedVideoIds} />
     </div>
   );
 }

@@ -5,17 +5,20 @@ import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { isDiscoverHomeRoute } from "@/lib/discoverRoutes";
 import { useMobileNav } from "@/context/MobileNavContext";
+import { useLocale } from "@/context/LocaleContext";
 
-const TITLES: { prefix: string; title: string }[] = [
-  { prefix: "/podcasts", title: "Discover Podcasts" },
-  { prefix: "/interviews", title: "Discover Interviews" },
-  { prefix: "/favourites", title: "Favourites" },
-  { prefix: "/playlists", title: "Playlists" },
+const TITLES: { prefix: string; key: string }[] = [
+  { prefix: "/podcasts", key: "header.discoverPodcasts" },
+  { prefix: "/interviews", key: "header.discoverInterviews" },
+  { prefix: "/favourites", key: "header.favourites" },
+  { prefix: "/playlists", key: "header.playlists" },
 ];
 
 export function Header({ userEmail }: { userEmail: string | null }) {
   const pathname = usePathname() ?? "";
-  const title = TITLES.find((t) => pathname.startsWith(t.prefix))?.title ?? "PodcastX";
+  const { t } = useLocale();
+  const titleKey = TITLES.find((entry) => pathname.startsWith(entry.prefix))?.key;
+  const title = titleKey ? t(titleKey) : "PodcastX";
   const onDiscoverHome = isDiscoverHomeRoute(pathname);
   const { toggle } = useMobileNav();
 
@@ -44,7 +47,7 @@ export function Header({ userEmail }: { userEmail: string | null }) {
         </Link>
       ) : (
         <Link href="/login" className="shrink-0 text-sm font-semibold text-muted hover:text-foreground">
-          Log in
+          {t("sidebar.logIn")}
         </Link>
       )}
     </header>

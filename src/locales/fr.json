@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "Menu",
+    "library": "Bibliothèque",
+    "podcasts": "Podcasts",
+    "interviews": "Entretiens",
+    "favourites": "Favoris",
+    "playlists": "Playlists",
+    "goToPremium": "Passer à Premium",
+    "logOut": "Déconnexion",
+    "logIn": "Connexion"
+  },
+  "header": {
+    "discoverPodcasts": "Découvrir les podcasts",
+    "discoverInterviews": "Découvrir les entretiens",
+    "favourites": "Favoris",
+    "playlists": "Playlists"
+  },
+  "home": {
+    "goodMorning": "Bonjour",
+    "goodAfternoon": "Bon après-midi",
+    "goodEvening": "Bonsoir",
+    "makeAPlaylist": "Créer une playlist",
+    "trending": "Tendance",
+    "topHosts": "Meilleurs hôtes",
+    "trendingPodcasts": "Podcasts en tendance",
+    "trendingInterviews": "Entretiens en tendance",
+    "viewAll": "Voir tout",
+    "noContentYet": "Les meilleurs {kind} de la semaine n'ont pas encore été recherchés — revenez bientôt.",
+    "podcastForYou": "Podcast pour vous",
+    "interviewForYou": "Entretien pour vous",
+    "trendingBadge": "#{rank} Tendance"
+  },
+  "sidePanel": {
+    "searchHere": "Rechercher ici",
+    "recentlySaved": "Récemment enregistré",
+    "viewAll": "Voir tout",
+    "nothingSavedYet": "Rien d'enregistré pour le moment.",
+    "categories": "Catégories",
+    "comingSoon": "Bientôt disponible"
+  },
+  "notifications": {
+    "recentlySaved": "Récemment enregistré",
+    "nothingSavedYet": "Rien d'enregistré pour le moment — appuyez sur l'icône de signet sur une vidéo pour l'ajouter ici.",
+    "clearAll": "Tout effacer",
+    "viewAllFavourites": "Voir tous les favoris",
+    "dismiss": "Ignorer"
+  },
+  "categoryBar": {
+    "all": "Tout",
+    "techAi": "Tech & IA",
+    "scienceEducation": "Science & Éducation",
+    "sports": "Sports",
+    "healthFitness": "Santé & Forme",
+    "comedy": "Comédie",
+    "popInternetCulture": "Culture pop & Internet"
+  },
+  "video": {
+    "processing": "Traitement en cours",
+    "views": "vues",
+    "noVideosFound": "Rien ici pour le moment — revenez bientôt, nous en trouverons d'autres cette semaine.",
+    "noVideosInPlaylist": "Aucune vidéo dans cette playlist pour le moment.",
+    "removeFromPlaylist": "Supprimer de la playlist",
+    "addToPlaylist": "Ajouter à la playlist",
+    "newPlaylist": "Nouvelle playlist",
+    "noPlaylistsYet": "Aucune playlist pour le moment — créez-en une ci-dessous.",
+    "saveToFavourites": "Ajouter aux favoris",
+    "removeFromFavourites": "Supprimer des favoris",
+    "loading": "Chargement…"
+  },
+  "summary": {
+    "playEpisode": "Lire l'épisode",
+    "playing": "Lecture",
+    "paused": "En pause",
+    "keyPoints": "Points clés",
+    "notableQuotes": "Citations notables",
+    "watchOnYouTube": "Regarder sur YouTube",
+    "summaryNotReady": "Résumé pas encore prêt — revenez une fois le traitement vidéo terminé.",
+    "showOriginal": "Afficher l'original",
+    "showTranslated": "Afficher la traduction",
+    "translating": "Traduction…"
+  },
+  "player": {
+    "nothingPlaying": "Rien en lecture",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "stopPlayback": "Arrêter la lecture"
+  },
+  "playlists": {
+    "title": "Playlists",
+    "newPlaylistName": "Nom de la nouvelle playlist",
+    "create": "Créer",
+    "noPlaylistsYet": "Vous n'avez pas encore créé de playlist.",
+    "deletePlaylist": "Supprimer la playlist",
+    "deleteConfirm": "Supprimer cette playlist ? Cette action est irréversible.",
+    "logInToCreate": "pour créer des playlists de podcasts et d'entretiens.",
+    "video": "vidéo",
+    "videos": "vidéos"
+  },
+  "favourites": {
+    "title": "Favoris",
+    "logInToSave": "pour enregistrer des podcasts et des entretiens dans vos favoris.",
+    "nothingSavedYet": "Rien d'enregistré pour le moment — appuyez sur l'icône de signet sur n'importe quel podcast ou entretien pour l'ajouter ici."
+  },
+  "auth": {
+    "logIn": "Connexion",
+    "signUp": "Inscription",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "welcomeBack": "Bon retour sur PodcastX.",
+    "createAccount": "Créer votre compte",
+    "dontHaveAccount": "Vous n'avez pas de compte ?",
+    "alreadyHaveAccount": "Déjà un compte ?",
+    "logInRequired": "Connexion requise",
+    "logInToSaveFavourites": "Connectez-vous pour enregistrer des vidéos dans vos Favoris.",
+    "logInToAddPlaylist": "Connectez-vous pour ajouter des vidéos à une playlist.",
+    "notNow": "Pas maintenant",
+    "createAccountDescription": "Créez un compte PodcastX pour enregistrer des vidéos pour plus tard.",
+    "continueBrowsing": "Continuer à naviguer sans compte"
+  },
+  "common": {
+    "settings": "Paramètres"
+  },
+  "time": {
+    "minAgo": "il y a {n} min",
+    "hrAgo": "il y a {n} h",
+    "dAgo": "il y a {n} j"
+  },
+  "profile": {
+    "memberSince": "Membre depuis",
+    "signOut": "Déconnexion",
+    "plans": "Forfaits",
+    "free": "Gratuit",
+    "freeDescription": "Naviguez, enregistrez et créez des playlists — sans frais.",
+    "current": "Actuel",
+    "pro": "Pro",
+    "proDescription": "Plus à venir bientôt.",
+    "comingSoon": "Bientôt disponible",
+    "language": "Langue",
+    "languageDescription": "Choisissez la langue d'affichage de PodcastX, et dans laquelle les titres/résumés vidéo peuvent être traduits."
+  }
+}

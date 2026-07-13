@@ -139,3 +139,102 @@ export async function summarizeTranscript(transcript: string): Promise<SummaryRe
 
   return JSON.parse(response.text ?? "{}") as SummaryResult;
 }
+
+export interface TranslatableContent {
+  title: string;
+  summaryText: string | null;
+  keyPoints: string[] | null;
+  notableQuotes: { quote: string; speaker?: string }[] | null;
+  topics: string[] | null;
+}
+
+/**
+ * Builds a translation response schema that only marks fields as present/required when the
+ * input actually has content for them — otherwise Gemini sometimes returns null for a populated
+ * array field (e.g. notableQuotes) instead of translating it, since a `nullable: true` schema
+ * makes omitting the field a valid response even when the source data wasn't null.
+ */
+function buildTranslationSchema(content: TranslatableContent) {
+  const properties: Record<string, unknown> = { title: { type: Type.STRING } };
+  const required = ["title"];
+
+  if (content.summaryText !== null) {
+    properties.summaryText = { type: Type.STRING };
+    required.push("summaryText");
+  }
+  if (content.keyPoints !== null) {
+    properties.keyPoints = { type: Type.ARRAY, items: { type: Type.STRING } };
+    required.push("keyPoints");
+  }
+  if (content.notableQuotes !== null) {
+    properties.notableQuotes = {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: { quote: { type: Type.STRING }, speaker: { type: Type.STRING, nullable: true } },
+        required: ["quote"],
+      },
+    };
+    required.push("notableQuotes");
+  }
+  if (content.topics !== null) {
+    properties.topics = { type: Type.ARRAY, items: { type: Type.STRING } };
+    required.push("topics");
+  }
+
+  return { type: Type.OBJECT, properties, required };
+}
+
+/** Translates a video's title + summary fields into `targetLanguageName` (e.g. "Spanish"), used for the per-video translate feature. */
+export async function translateContent(
+  content: TranslatableContent,
+  targetLanguageName: string
+): Promise<TranslatableContent> {
+  const response = await generateContentWithRateLimit({
+    model: TEXT_MODEL,
+    contents: `Translate every field below into ${targetLanguageName}. Every field present in this JSON has real content and must be translated in full — do not omit, shorten, or drop any array item; the output arrays must have exactly the same number of items as the input. Keep speaker names in notableQuotes unchanged (do not translate proper names).\n\n${JSON.stringify(content, null, 2)}`,
+    config: {
+      responseMimeType: "application/json",
+      responseSchema: buildTranslationSchema(content),
+      maxOutputTokens: 4096,
+    },
+  });
+
+  return JSON.parse(response.text ?? "{}") as TranslatableContent;
+}
+
+const TITLES_SCHEMA = {
+  type: Type.OBJECT,
+  properties: {
+    titles: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: { id: { type: Type.STRING }, title: { type: Type.STRING } },
+        required: ["id", "title"],
+      },
+    },
+  },
+  required: ["titles"],
+};
+
+/** Translates just the titles of many videos in a single call — used to localize titles shown in browsing lists (cards, hosts, recently saved), as opposed to the fuller per-video translateContent used when a summary panel is opened. */
+export async function translateTitlesBulk(
+  items: { id: string; title: string }[],
+  targetLanguageName: string
+): Promise<{ id: string; title: string }[]> {
+  if (items.length === 0) return [];
+
+  const response = await generateContentWithRateLimit({
+    model: TEXT_MODEL,
+    contents: `Translate each "title" below into ${targetLanguageName}, keeping the same "id" unchanged. Return every item in the input — do not skip any.\n\n${JSON.stringify(items, null, 2)}`,
+    config: {
+      responseMimeType: "application/json",
+      responseSchema: TITLES_SCHEMA,
+      maxOutputTokens: 4096,
+    },
+  });
+
+  const parsed = JSON.parse(response.text ?? "{}") as { titles?: { id: string; title: string }[] };
+  return parsed.titles ?? [];
+}

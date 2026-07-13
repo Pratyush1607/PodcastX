@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "القائمة",
+    "library": "المكتبة",
+    "podcasts": "البودكاست",
+    "interviews": "المقابلات",
+    "favourites": "المفضلة",
+    "playlists": "قوائم التشغيل",
+    "goToPremium": "انتقل إلى بريميوم",
+    "logOut": "تسجيل الخروج",
+    "logIn": "تسجيل الدخول"
+  },
+  "header": {
+    "discoverPodcasts": "اكتشف البودكاست",
+    "discoverInterviews": "اكتشف المقابلات",
+    "favourites": "المفضلة",
+    "playlists": "قوائم التشغيل"
+  },
+  "home": {
+    "goodMorning": "صباح الخير",
+    "goodAfternoon": "مساء الخير",
+    "goodEvening": "مساء الخير",
+    "makeAPlaylist": "إنشاء قائمة تشغيل",
+    "trending": "الأكثر رواجاً",
+    "topHosts": "أفضل المضيفين",
+    "trendingPodcasts": "البودكاست الأكثر رواجاً",
+    "trendingInterviews": "المقابلات الأكثر رواجاً",
+    "viewAll": "عرض الكل",
+    "noContentYet": "لم يتم العثور على أفضل {kind} لهذا الأسبوع بعد — تحقق مرة أخرى قريباً.",
+    "podcastForYou": "بودكاست مخصص لك",
+    "interviewForYou": "مقابلة مخصصة لك",
+    "trendingBadge": "#{rank} رائج"
+  },
+  "sidePanel": {
+    "searchHere": "ابحث هنا",
+    "recentlySaved": "محفوظ مؤخراً",
+    "viewAll": "عرض الكل",
+    "nothingSavedYet": "لم يتم حفظ أي شيء بعد.",
+    "categories": "الفئات",
+    "comingSoon": "قريباً"
+  },
+  "notifications": {
+    "recentlySaved": "محفوظ مؤخراً",
+    "nothingSavedYet": "لم يتم حفظ أي شيء بعد — اضغط على أيقونة الإشارة المرجعية على أي فيديو لإضافته هنا.",
+    "clearAll": "مسح الكل",
+    "viewAllFavourites": "عرض كل المفضلات",
+    "dismiss": "إلغاء"
+  },
+  "categoryBar": {
+    "all": "الكل",
+    "techAi": "التكنولوجيا والذكاء الاصطناعي",
+    "scienceEducation": "العلوم والتعليم",
+    "sports": "الرياضة",
+    "healthFitness": "الصحة واللياقة البدنية",
+    "comedy": "الكوميديا",
+    "popInternetCulture": "الثقافة الشعبية وإنترنت"
+  },
+  "video": {
+    "processing": "جاري المعالجة",
+    "views": "مشاهدات",
+    "noVideosFound": "لا يوجد شيء هنا بعد — تحقق مرة أخرى قريباً حيث نجد المزيد هذا الأسبوع.",
+    "noVideosInPlaylist": "لا توجد فيديوهات في قائمة التشغيل هذه بعد.",
+    "removeFromPlaylist": "إزالة من قائمة التشغيل",
+    "addToPlaylist": "إضافة إلى قائمة التشغيل",
+    "newPlaylist": "قائمة تشغيل جديدة",
+    "noPlaylistsYet": "لا توجد قوائم تشغيل بعد — قم بإنشاء واحدة أدناه.",
+    "saveToFavourites": "حفظ في المفضلة",
+    "removeFromFavourites": "إزالة من المفضلة",
+    "loading": "جاري التحميل…"
+  },
+  "summary": {
+    "playEpisode": "تشغيل الحلقة",
+    "playing": "جاري التشغيل",
+    "paused": "متوقف مؤقتاً",
+    "keyPoints": "النقاط الرئيسية",
+    "notableQuotes": "اقتباسات بارزة",
+    "watchOnYouTube": "مشاهدة على يوتيوب",
+    "summaryNotReady": "الملخص ليس جاهزاً بعد — تحقق مرة أخرى بعد انتهاء معالجة هذا الفيديو.",
+    "showOriginal": "عرض الأصل",
+    "showTranslated": "عرض الترجمة",
+    "translating": "جاري الترجمة…"
+  },
+  "player": {
+    "nothingPlaying": "لا يوجد شيء قيد التشغيل",
+    "previous": "السابق",
+    "next": "التالي",
+    "stopPlayback": "إيقاف التشغيل"
+  },
+  "playlists": {
+    "title": "قوائم التشغيل",
+    "newPlaylistName": "اسم قائمة التشغيل الجديدة",
+    "create": "إنشاء",
+    "noPlaylistsYet": "لم تقم بإنشاء أي قوائم تشغيل بعد.",
+    "deletePlaylist": "حذف قائمة التشغيل",
+    "deleteConfirm": "هل تريد حذف قائمة التشغيل هذه؟ لا يمكن التراجع عن هذا الإجراء.",
+    "logInToCreate": "لإنشاء قوائم تشغيل للبودكاست والمقابلات.",
+    "video": "فيديو",
+    "videos": "فيديوهات"
+  },
+  "favourites": {
+    "title": "المفضلة",
+    "logInToSave": "لحفظ البودكاست والمقابلات في المفضلة لديك.",
+    "nothingSavedYet": "لم يتم حفظ أي شيء بعد — اضغط على أيقونة الإشارة المرجعية على أي بودكاست أو مقابلة لإضافته هنا."
+  },
+  "auth": {
+    "logIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "welcomeBack": "أهلاً بك مجدداً في PodcastX.",
+    "createAccount": "إنشاء حسابك",
+    "dontHaveAccount": "أليس لديك حساب؟",
+    "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+    "logInRequired": "مطلوب تسجيل الدخول",
+    "logInToSaveFavourites": "سجّل الدخول لحفظ الفيديوهات في المفضلة.",
+    "logInToAddPlaylist": "سجّل الدخول لإضافة فيديوهات إلى قائمة تشغيل.",
+    "notNow": "ليس الآن",
+    "createAccountDescription": "أنشئ حساباً في PodcastX لحفظ الفيديوهات لمشاهدتها لاحقاً.",
+    "continueBrowsing": "متابعة التصفح بدون حساب"
+  },
+  "common": {
+    "settings": "الإعدادات"
+  },
+  "time": {
+    "minAgo": "منذ {n} دقيقة",
+    "hrAgo": "منذ {n} ساعة",
+    "dAgo": "منذ {n} يوم"
+  },
+  "profile": {
+    "memberSince": "عضو منذ",
+    "signOut": "تسجيل الخروج",
+    "plans": "الباقات",
+    "free": "مجاني",
+    "freeDescription": "تصفح، احفظ، وأنشئ قوائم تشغيل — بدون تكلفة.",
+    "current": "الحالي",
+    "pro": "احترافي (Pro)",
+    "proDescription": "المزيد قريباً.",
+    "comingSoon": "قريباً",
+    "language": "اللغة",
+    "languageDescription": "اختر اللغة التي يظهر بها PodcastX، والتي يمكن ترجمة عناوين الفيديوهات/الملخصات إليها."
+  }
+}

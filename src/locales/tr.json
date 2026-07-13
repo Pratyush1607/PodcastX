@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "Menü",
+    "library": "Kütüphane",
+    "podcasts": "Podcast'ler",
+    "interviews": "Röportajlar",
+    "favourites": "Favoriler",
+    "playlists": "Oynatma Listeleri",
+    "goToPremium": "Premium'a Geç",
+    "logOut": "Çıkış Yap",
+    "logIn": "Giriş Yap"
+  },
+  "header": {
+    "discoverPodcasts": "Podcast'leri Keşfet",
+    "discoverInterviews": "Röportajları Keşfet",
+    "favourites": "Favoriler",
+    "playlists": "Oynatma Listeleri"
+  },
+  "home": {
+    "goodMorning": "Günaydın",
+    "goodAfternoon": "Tünaydın",
+    "goodEvening": "İyi akşamlar",
+    "makeAPlaylist": "Oynatma listesi oluştur",
+    "trending": "Trendler",
+    "topHosts": "En iyi yayıncılar",
+    "trendingPodcasts": "Trend olan podcast'ler",
+    "trendingInterviews": "Trend olan röportajlar",
+    "viewAll": "Hepsini Görüntüle",
+    "noContentYet": "Bu haftanın en iyi {kind} içerikleri henüz araştırılmadı — yakında tekrar kontrol edin.",
+    "podcastForYou": "Sizin için podcast",
+    "interviewForYou": "Sizin için röportaj",
+    "trendingBadge": "#{rank} Trend"
+  },
+  "sidePanel": {
+    "searchHere": "Burada ara",
+    "recentlySaved": "Son kaydedilenler",
+    "viewAll": "Hepsini görüntüle",
+    "nothingSavedYet": "Henüz bir şey kaydedilmedi.",
+    "categories": "Kategoriler",
+    "comingSoon": "Yakında"
+  },
+  "notifications": {
+    "recentlySaved": "Son kaydedilenler",
+    "nothingSavedYet": "Henüz bir şey kaydedilmedi — buraya eklemek için bir videodaki yer imi simgesine dokunun.",
+    "clearAll": "Hepsini temizle",
+    "viewAllFavourites": "Tüm Favorileri görüntüle",
+    "dismiss": "Kapat"
+  },
+  "categoryBar": {
+    "all": "Tümü",
+    "techAi": "Teknoloji & Yapay Zeka",
+    "scienceEducation": "Bilim & Eğitim",
+    "sports": "Spor",
+    "healthFitness": "Sağlık & Fitness",
+    "comedy": "Komedi",
+    "popInternetCulture": "Pop Kültür & İnternet Kültürü"
+  },
+  "video": {
+    "processing": "İşleniyor",
+    "views": "görüntülenme",
+    "noVideosFound": "Burada henüz bir şey yok — bu hafta daha fazlasını bulduğumuzda tekrar kontrol edin.",
+    "noVideosInPlaylist": "Bu oynatma listesinde henüz video yok.",
+    "removeFromPlaylist": "Oynatma listesinden kaldır",
+    "addToPlaylist": "Oynatma listesine ekle",
+    "newPlaylist": "Yeni oynatma listesi",
+    "noPlaylistsYet": "Henüz oynatma listesi yok — aşağıdan bir tane oluşturun.",
+    "saveToFavourites": "Favorilere kaydet",
+    "removeFromFavourites": "Favorilerden kaldır",
+    "loading": "Yükleniyor…"
+  },
+  "summary": {
+    "playEpisode": "Bölümü oynat",
+    "playing": "Oynatılıyor",
+    "paused": "Duraklatıldı",
+    "keyPoints": "Önemli noktalar",
+    "notableQuotes": "Dikkat çeken alıntılar",
+    "watchOnYouTube": "YouTube'da izle",
+    "summaryNotReady": "Özet henüz hazır değil — bu video işlenmeyi bitirdikten sonra tekrar kontrol edin.",
+    "showOriginal": "Orijinali göster",
+    "showTranslated": "Çeviriyi göster",
+    "translating": "Çevriliyor…"
+  },
+  "player": {
+    "nothingPlaying": "Hiçbir şey oynatılmıyor",
+    "previous": "Önceki",
+    "next": "Sonraki",
+    "stopPlayback": "Oynatmayı durdur"
+  },
+  "playlists": {
+    "title": "Oynatma Listeleri",
+    "newPlaylistName": "Yeni oynatma listesi adı",
+    "create": "Oluştur",
+    "noPlaylistsYet": "Henüz hiçbir oynatma listesi oluşturmadınız.",
+    "deletePlaylist": "Oynatma listesini sil",
+    "deleteConfirm": "Bu oynatma listesini silmek istiyor musunuz? Bu işlem geri alınamaz.",
+    "logInToCreate": "podcast ve röportajlardan oynatma listeleri oluşturmak için giriş yapın.",
+    "video": "video",
+    "videos": "video"
+  },
+  "favourites": {
+    "title": "Favoriler",
+    "logInToSave": "podcast ve röportajları favorilerinize kaydetmek için giriş yapın.",
+    "nothingSavedYet": "Henüz bir şey kaydedilmedi — buraya eklemek için herhangi bir podcast veya röportajdaki yer imi simgesine dokunun."
+  },
+  "auth": {
+    "logIn": "Giriş Yap",
+    "signUp": "Kaydol",
+    "email": "E-posta",
+    "password": "Şifre",
+    "welcomeBack": "PodcastX'e tekrar hoş geldiniz.",
+    "createAccount": "Hesabınızı oluşturun",
+    "dontHaveAccount": "Hesabınız yok mu?",
+    "alreadyHaveAccount": "Zaten bir hesabınız var mı?",
+    "logInRequired": "Giriş yapılması gerekiyor",
+    "logInToSaveFavourites": "Videoları Favorilerinize kaydetmek için giriş yapın.",
+    "logInToAddPlaylist": "Videoları bir oynatma listesine eklemek için giriş yapın.",
+    "notNow": "Şimdi değil",
+    "createAccountDescription": "Videoları daha sonra izlemek üzere kaydetmek için bir PodcastX hesabı oluşturun.",
+    "continueBrowsing": "Hesap olmadan göz atmaya devam et"
+  },
+  "common": {
+    "settings": "Ayarlar"
+  },
+  "time": {
+    "minAgo": "{n} dakika önce",
+    "hrAgo": "{n} saat önce",
+    "dAgo": "{n} gün önce"
+  },
+  "profile": {
+    "memberSince": "Üyelik tarihi:",
+    "signOut": "Çıkış Yap",
+    "plans": "Planlar",
+    "free": "Ücretsiz",
+    "freeDescription": "Göz atın, kaydedin ve oynatma listeleri oluşturun — ücretsiz.",
+    "current": "Mevcut",
+    "pro": "Pro",
+    "proDescription": "Yakında daha fazlası gelecek.",
+    "comingSoon": "Yakında",
+    "language": "Dil",
+    "languageDescription": "PodcastX'in görüntüleneceği dili seçin; video başlıkları ve özetleri bu dile çevrilebilir."
+  }
+}

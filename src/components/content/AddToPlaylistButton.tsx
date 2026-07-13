@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ListPlus, Check, Plus } from "lucide-react";
 import { LoginPromptModal } from "@/components/ui/LoginPromptModal";
+import { useLocale } from "@/context/LocaleContext";
 
 interface PlaylistOption {
   id: string;
@@ -18,6 +19,7 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
   const [creating, setCreating] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { t } = useLocale();
 
   useEffect(() => {
     if (!open) return;
@@ -93,7 +95,7 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
     <div ref={ref} className="relative" onClick={(e) => e.stopPropagation()}>
       <button
         onClick={handleOpen}
-        title="Add to playlist"
+        title={t("video.addToPlaylist")}
         className={`flex shrink-0 items-center justify-center rounded-full backdrop-blur transition ${
           size === "lg" ? "h-10 w-10 bg-white/10 hover:bg-white/20" : "h-7 w-7 bg-black/50 hover:bg-black/70"
         }`}
@@ -104,13 +106,13 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
       {open && (
         <div className="absolute top-9 right-0 z-30 w-64 rounded-2xl bg-surface p-2 shadow-xl">
           <p className="px-2 pt-1 pb-2 text-xs font-bold tracking-[0.1em] text-muted uppercase">
-            Add to playlist
+            {t("video.addToPlaylist")}
           </p>
 
-          {loading && <p className="px-2 py-2 text-sm text-muted">Loading…</p>}
+          {loading && <p className="px-2 py-2 text-sm text-muted">{t("video.loading")}</p>}
 
           {!loading && playlists && playlists.length === 0 && (
-            <p className="px-2 py-2 text-sm text-muted">No playlists yet — create one below.</p>
+            <p className="px-2 py-2 text-sm text-muted">{t("video.noPlaylistsYet")}</p>
           )}
 
           {!loading && playlists && playlists.length > 0 && (
@@ -132,7 +134,7 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
             <input
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
-              placeholder="New playlist"
+              placeholder={t("video.newPlaylist")}
               className="w-full min-w-0 rounded-lg border border-border bg-background px-2.5 py-1.5 text-sm outline-none focus:border-accent"
             />
             <button
@@ -148,7 +150,7 @@ export function AddToPlaylistButton({ videoId, size = "sm" }: { videoId: string;
 
       {showLoginPrompt && (
         <LoginPromptModal
-          message="Log in to add videos to a playlist."
+          message={t("auth.logInToAddPlaylist")}
           onClose={() => setShowLoginPrompt(false)}
         />
       )}

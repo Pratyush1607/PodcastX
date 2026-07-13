@@ -10,6 +10,7 @@ import { BookmarkButton } from "@/components/content/BookmarkButton";
 import { AddToPlaylistButton } from "@/components/content/AddToPlaylistButton";
 import { usePlayer } from "@/context/PlayerContext";
 import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
+import { useLocale } from "@/context/LocaleContext";
 
 export function Row({
   label,
@@ -24,6 +25,7 @@ export function Row({
 }) {
   const [selected, setSelected] = useState<ApiVideo | null>(null);
   const { current, playing, play, togglePlay } = usePlayer();
+  const { t } = useLocale();
 
   function handlePlayClick(e: React.MouseEvent, video: ApiVideo) {
     e.stopPropagation();
@@ -41,7 +43,7 @@ export function Row({
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-xl font-bold">{label}</h3>
         <Link href={seeAllHref} className="text-xs font-semibold text-accent hover:brightness-110">
-          View All
+          {t("home.viewAll")}
         </Link>
       </div>
 
@@ -66,7 +68,7 @@ export function Row({
 
               {!video.summary && (
                 <div className="absolute top-3 left-3">
-                  <Badge variant="warning">Processing</Badge>
+                  <Badge variant="warning">{t("video.processing")}</Badge>
                 </div>
               )}
 

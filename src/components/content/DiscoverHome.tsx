@@ -1,32 +1,57 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import type { ContentType } from "@/types/db";
+import type { ApiVideo } from "@/types/api";
 import { getHomepageData } from "@/lib/content";
 import { getSavedVideoIdSet, getRecentSavedVideosWithTimestamps } from "@/lib/watchLater";
 import { createClient } from "@/lib/supabase/server";
+import { withTranslatedTitles } from "@/lib/translateTitles";
 import { Hero } from "@/components/content/Hero";
 import { DiscoverSidePanel } from "@/components/content/DiscoverSidePanel";
 import { TopHostsRow } from "@/components/content/TopHostsRow";
 import { Row } from "@/components/content/Row";
+import { CATEGORY_LABEL_KEYS } from "@/components/content/CategoryBar";
+import { getServerT } from "@/lib/serverTranslate";
 
-function greeting(): string {
+function greetingKey(): string {
   const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 18) return "Good afternoon";
-  return "Good evening";
+  if (hour < 12) return "home.goodMorning";
+  if (hour < 18) return "home.goodAfternoon";
+  return "home.goodEvening";
 }
 
 export async function DiscoverHome({ type }: { type: ContentType }) {
   const supabase = await createClient();
-  const [{ runId, all, categories, genres }, savedVideoIds, recentSaves, { data: { user } }] =
+  const [{ runId, all, categories, genres }, savedVideoIds, recentSaves, { data: { user } }, { t, locale }] =
     await Promise.all([
       getHomepageData(type),
       getSavedVideoIdSet(),
       getRecentSavedVideosWithTimestamps(),
       supabase.auth.getUser(),
+      getServerT(),
     ]);
+
+  // Translate every distinct video's title once, then reuse the result across all/categories/recentSaves
+  // instead of translating the same video multiple times.
+  const videoById = new Map<string, ApiVideo>();
+  for (const v of all) videoById.set(v.id, v);
+  for (const cat of categories) for (const v of cat.videos) videoById.set(v.id, v);
+  for (const r of recentSaves) videoById.set(r.video.id, r.video);
+  const translatedById = new Map(
+    (await withTranslatedTitles(Array.from(videoById.values()), locale)).map((v) => [v.id, v.title])
+  );
+  const withTitle = <T extends { id: string; title: string }>(v: T): T => ({
+    ...v,
+    title: translatedById.get(v.id) ?? v.title,
+  });
+
+  const translatedAll = all.map(withTitle);
+  const translatedCategories = categories.map((cat) => ({ ...cat, videos: cat.videos.map(withTitle) }));
+  const translatedRecentSaves = recentSaves.map((r) => ({ ...r, video: withTitle(r.video) }));
+
   const base = type === "podcast" ? "/podcasts" : "/interviews";
-  const kind = type === "podcast" ? "podcasts" : "interviews";
+  const kind = type === "podcast" ? t("sidebar.podcasts") : t("sidebar.interviews");
+  const kindKey = type === "podcast" ? "trendingPodcasts" : "trendingInterviews";
   const name = user?.email?.split("@")[0];
 
   return (
@@ -39,7 +64,7 @@ export async function DiscoverHome({ type }: { type: ContentType }) {
                 {name[0]!.toUpperCase()}
               </div>
               <div>
-                <p className="text-sm text-muted">{greeting()}</p>
+                <p className="text-sm text-muted">{t(greetingKey())}</p>
                 <p className="font-bold capitalize">{name}</p>
               </div>
             </div>
@@ -48,35 +73,33 @@ export async function DiscoverHome({ type }: { type: ContentType }) {
               className="flex items-center gap-1.5 text-sm font-semibold text-accent hover:brightness-110"
             >
               <Plus size={16} />
-              Make a playlist
+              {t("home.makeAPlaylist")}
             </Link>
           </div>
         )}
 
         {!runId ? (
-          <p className="py-12 text-muted">
-            This week&apos;s top {kind} haven&apos;t been researched yet — check back soon.
-          </p>
+          <p className="py-12 text-muted">{t("home.noContentYet", { kind })}</p>
         ) : (
           <div className="space-y-8">
             <div>
-              <p className="mb-3 text-sm text-muted">Trending</p>
-              <Hero videos={all.slice(0, 5)} savedVideoIds={savedVideoIds} />
+              <p className="mb-3 text-sm text-muted">{t("home.trending")}</p>
+              <Hero videos={translatedAll.slice(0, 5)} savedVideoIds={savedVideoIds} />
             </div>
 
-            <TopHostsRow videos={all} savedVideoIds={savedVideoIds} />
+            <TopHostsRow videos={translatedAll} savedVideoIds={savedVideoIds} />
 
             <Row
-              label={`Trending ${kind}`}
-              videos={all}
+              label={t(`home.${kindKey}`)}
+              videos={translatedAll}
               seeAllHref={`${base}/overall`}
               savedVideoIds={savedVideoIds}
             />
 
-            {categories.map((cat) => (
+            {translatedCategories.map((cat) => (
               <Row
                 key={cat.scope}
-                label={cat.label}
+                label={t(CATEGORY_LABEL_KEYS[cat.scope])}
                 videos={cat.videos}
                 seeAllHref={`${base}/${cat.scope}`}
                 savedVideoIds={savedVideoIds}
@@ -90,9 +113,9 @@ export async function DiscoverHome({ type }: { type: ContentType }) {
         <DiscoverSidePanel
           userEmail={user?.email ?? null}
           userName={name ?? null}
-          searchableVideos={[...all, ...categories.flatMap((c) => c.videos)]}
+          searchableVideos={[...translatedAll, ...translatedCategories.flatMap((c) => c.videos)]}
           genres={genres}
-          recentSaves={recentSaves}
+          recentSaves={translatedRecentSaves}
           savedVideoIds={savedVideoIds}
         />
       )}

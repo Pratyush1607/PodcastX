@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "मेनू",
+    "library": "लाइब्रेरी",
+    "podcasts": "पॉडकास्ट",
+    "interviews": "साक्षात्कार",
+    "favourites": "पसंदीदा",
+    "playlists": "प्लेलिस्ट",
+    "goToPremium": "प्रीमियम पर जाएं",
+    "logOut": "लॉग आउट",
+    "logIn": "लॉग इन"
+  },
+  "header": {
+    "discoverPodcasts": "पॉडकास्ट खोजें",
+    "discoverInterviews": "साक्षात्कार खोजें",
+    "favourites": "पसंदीदा",
+    "playlists": "प्लेलिस्ट"
+  },
+  "home": {
+    "goodMorning": "शुभ प्रभात",
+    "goodAfternoon": "शुभ दोपहर",
+    "goodEvening": "शुभ संध्या",
+    "makeAPlaylist": "प्लेलिस्ट बनाएं",
+    "trending": "ट्रेंडिंग",
+    "topHosts": "शीर्ष होस्ट",
+    "trendingPodcasts": "ट्रेंडिंग पॉडकास्ट",
+    "trendingInterviews": "ट्रेंडिंग साक्षात्कार",
+    "viewAll": "सभी देखें",
+    "noContentYet": "इस सप्ताह के शीर्ष {kind} अभी तक शोध नहीं किए गए हैं - जल्द ही वापस आएं।",
+    "podcastForYou": "आपके लिए पॉडकास्ट",
+    "interviewForYou": "आपके लिए साक्षात्कार",
+    "trendingBadge": "#{rank} ट्रेंडिंग"
+  },
+  "sidePanel": {
+    "searchHere": "यहां खोजें",
+    "recentlySaved": "हाल ही में सहेजे गए",
+    "viewAll": "सभी देखें",
+    "nothingSavedYet": "अभी तक कुछ भी नहीं सहेजा गया है।",
+    "categories": "श्रेणियां",
+    "comingSoon": "जल्द आ रहा है"
+  },
+  "notifications": {
+    "recentlySaved": "हाल ही में सहेजे गए",
+    "nothingSavedYet": "अभी तक कुछ भी नहीं सहेजा गया है - इसे यहां जोड़ने के लिए वीडियो पर बुकमार्क आइकन टैप करें।",
+    "clearAll": "सब साफ़ करें",
+    "viewAllFavourites": "सभी पसंदीदा देखें",
+    "dismiss": "खारिज करें"
+  },
+  "categoryBar": {
+    "all": "सभी",
+    "techAi": "तकनीक और AI",
+    "scienceEducation": "विज्ञान और शिक्षा",
+    "sports": "खेल",
+    "healthFitness": "स्वास्थ्य और फिटनेस",
+    "comedy": "कॉमेडी",
+    "popInternetCulture": "पॉप कल्चर और इंटरनेट कल्चर"
+  },
+  "video": {
+    "processing": "प्रोसेसिंग",
+    "views": "दृश्य",
+    "noVideosFound": "यहां अभी तक कुछ भी नहीं है - हम इस सप्ताह और अधिक खोज रहे हैं, वापस आएं।",
+    "noVideosInPlaylist": "इस प्लेलिस्ट में अभी तक कोई वीडियो नहीं है।",
+    "removeFromPlaylist": "प्लेलिस्ट से हटाएं",
+    "addToPlaylist": "प्लेलिस्ट में जोड़ें",
+    "newPlaylist": "नई प्लेलिस्ट",
+    "noPlaylistsYet": "अभी तक कोई प्लेलिस्ट नहीं है - नीचे एक बनाएं।",
+    "saveToFavourites": "पसंदीदा में सहेजें",
+    "removeFromFavourites": "पसंदीदा से हटाएं",
+    "loading": "लोड हो रहा है..."
+  },
+  "summary": {
+    "playEpisode": "एपिसोड चलाएं",
+    "playing": "चल रहा है",
+    "paused": "रोका गया",
+    "keyPoints": "मुख्य बिंदु",
+    "notableQuotes": "उल्लेखनीय उद्धरण",
+    "watchOnYouTube": "YouTube पर देखें",
+    "summaryNotReady": "सारांश अभी तैयार नहीं है - यह वीडियो प्रोसेस होने के बाद वापस आएं।",
+    "showOriginal": "मूल दिखाएं",
+    "showTranslated": "अनुवाद दिखाएं",
+    "translating": "अनुवाद हो रहा है..."
+  },
+  "player": {
+    "nothingPlaying": "कुछ भी नहीं चल रहा है",
+    "previous": "पिछला",
+    "next": "अगला",
+    "stopPlayback": "प्लेबैक रोकें"
+  },
+  "playlists": {
+    "title": "प्लेलिस्ट",
+    "newPlaylistName": "नई प्लेलिस्ट का नाम",
+    "create": "बनाएं",
+    "noPlaylistsYet": "आपने अभी तक कोई प्लेलिस्ट नहीं बनाई है।",
+    "deletePlaylist": "प्लेलिस्ट हटाएं",
+    "deleteConfirm": "इस प्लेलिस्ट को हटाएं? इसे पूर्ववत नहीं किया जा सकता।",
+    "logInToCreate": "पॉडकास्ट और साक्षात्कार की प्लेलिस्ट बनाने के लिए।",
+    "video": "वीडियो",
+    "videos": "वीडियो"
+  },
+  "favourites": {
+    "title": "पसंदीदा",
+    "logInToSave": "पॉडकास्ट और साक्षात्कार को अपने पसंदीदा में सहेजने के लिए।",
+    "nothingSavedYet": "अभी तक कुछ भी नहीं सहेजा गया है - किसी भी पॉडकास्ट या साक्षात्कार को यहां जोड़ने के लिए बुकमार्क आइकन टैप करें।"
+  },
+  "auth": {
+    "logIn": "लॉग इन",
+    "signUp": "साइन अप",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "welcomeBack": "PodcastX में वापस स्वागत है।",
+    "createAccount": "अपना खाता बनाएं",
+    "dontHaveAccount": "खाता नहीं है?",
+    "alreadyHaveAccount": "पहले से खाता है?",
+    "logInRequired": "लॉग इन आवश्यक है",
+    "logInToSaveFavourites": "अपने पसंदीदा में वीडियो सहेजने के लिए लॉग इन करें।",
+    "logInToAddPlaylist": "प्लेलिस्ट में वीडियो जोड़ने के लिए लॉग इन करें।",
+    "notNow": "अभी नहीं",
+    "createAccountDescription": "बाद में वीडियो सहेजने के लिए PodcastX खाता बनाएं।",
+    "continueBrowsing": "बिना खाते के ब्राउज़ करना जारी रखें"
+  },
+  "common": {
+    "settings": "सेटिंग्स"
+  },
+  "time": {
+    "minAgo": "{n} मिनट पहले",
+    "hrAgo": "{n} घंटे पहले",
+    "dAgo": "{n} दिन पहले"
+  },
+  "profile": {
+    "memberSince": "सदस्य",
+    "signOut": "साइन आउट",
+    "plans": "योजनाएं",
+    "free": "फ्री",
+    "freeDescription": "ब्राउज़ करें, सहेजें और प्लेलिस्ट बनाएं — कोई शुल्क नहीं।",
+    "current": "वर्तमान",
+    "pro": "प्रो",
+    "proDescription": "अधिक जल्द ही आ रहा है।",
+    "comingSoon": "जल्द आ रहा है",
+    "language": "भाषा",
+    "languageDescription": "वह भाषा चुनें जिसमें PodcastX दिखाया जाता है, और वीडियो के शीर्षक/सारांश का अनुवाद किया जा सकता है।"
+  }
+}

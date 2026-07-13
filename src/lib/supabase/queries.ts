@@ -348,3 +348,63 @@ export async function getCategoryViewTotals(
   }
   return Array.from(totals.entries()).map(([scope, totalViews]) => ({ scope, totalViews }));
 }
+
+export interface ContentTranslationRow {
+  translated_title: string;
+  translated_summary_text: string | null;
+  translated_key_points: string[] | null;
+  translated_notable_quotes: { quote: string; speaker?: string }[] | null;
+  translated_topics: string[] | null;
+}
+
+/** Cached translation of a video's title/summary into `locale`, shared across every user — null if never translated yet. */
+export async function getCachedTranslation(videoId: string, locale: string): Promise<ContentTranslationRow | null> {
+  const { data, error } = await supabase
+    .from("content_translations")
+    .select("translated_title, translated_summary_text, translated_key_points, translated_notable_quotes, translated_topics")
+    .eq("video_id", videoId)
+    .eq("locale", locale)
+    .maybeSingle();
+  if (error) throw error;
+  return data as ContentTranslationRow | null;
+}
+
+export async function saveTranslation(
+  videoId: string,
+  locale: string,
+  translation: ContentTranslationRow
+): Promise<void> {
+  const { error } = await supabase.from("content_translations").upsert(
+    {
+      video_id: videoId,
+      locale,
+      translated_title: translation.translated_title,
+      translated_summary_text: translation.translated_summary_text,
+      translated_key_points: translation.translated_key_points,
+      translated_notable_quotes: translation.translated_notable_quotes,
+      translated_topics: translation.translated_topics,
+    },
+    { onConflict: "video_id,locale" }
+  );
+  if (error) throw error;
+}
+
+/** Cached titles only, for the videoIds that already have a translation row in `locale` — used to localize list/card titles. */
+export async function getCachedTitles(videoIds: string[], locale: string): Promise<Map<string, string>> {
+  if (videoIds.length === 0) return new Map();
+  const { data, error } = await supabase
+    .from("content_translations")
+    .select("video_id, translated_title")
+    .in("video_id", videoIds)
+    .eq("locale", locale);
+  if (error) throw error;
+  return new Map((data ?? []).map((row) => [row.video_id as string, row.translated_title as string]));
+}
+
+/** Upserts just the title column — leaves any other translated_* columns already present untouched. */
+export async function saveTitleTranslation(videoId: string, locale: string, title: string): Promise<void> {
+  const { error } = await supabase
+    .from("content_translations")
+    .upsert({ video_id: videoId, locale, translated_title: title }, { onConflict: "video_id,locale" });
+  if (error) throw error;
+}

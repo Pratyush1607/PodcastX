@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { PlaylistsList } from "@/components/content/PlaylistsList";
+import { getServerT } from "@/lib/serverTranslate";
 
 export const dynamic = "force-dynamic";
 
@@ -9,14 +10,15 @@ export default async function PlaylistsPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  const { t } = await getServerT();
 
   if (!user) {
     return (
       <p className="px-8 py-12 text-muted">
         <Link href="/login" className="text-accent underline">
-          Log in
+          {t("sidebar.logIn")}
         </Link>{" "}
-        to create playlists of podcasts and interviews.
+        {t("playlists.logInToCreate")}
       </p>
     );
   }
@@ -34,7 +36,7 @@ export default async function PlaylistsPage() {
 
   return (
     <div className="px-8 py-6">
-      <h2 className="mb-4 text-2xl font-bold">Playlists</h2>
+      <h2 className="mb-4 text-2xl font-bold">{t("playlists.title")}</h2>
       <PlaylistsList initialPlaylists={playlists} />
     </div>
   );

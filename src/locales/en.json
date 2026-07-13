@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "Menu",
+    "library": "Library",
+    "podcasts": "Podcasts",
+    "interviews": "Interviews",
+    "favourites": "Favourites",
+    "playlists": "Playlists",
+    "goToPremium": "Go to Premium",
+    "logOut": "Log out",
+    "logIn": "Log in"
+  },
+  "header": {
+    "discoverPodcasts": "Discover Podcasts",
+    "discoverInterviews": "Discover Interviews",
+    "favourites": "Favourites",
+    "playlists": "Playlists"
+  },
+  "home": {
+    "goodMorning": "Good morning",
+    "goodAfternoon": "Good afternoon",
+    "goodEvening": "Good evening",
+    "makeAPlaylist": "Make a playlist",
+    "trending": "Trending",
+    "topHosts": "Top hosts",
+    "trendingPodcasts": "Trending podcasts",
+    "trendingInterviews": "Trending interviews",
+    "viewAll": "View All",
+    "noContentYet": "This week's top {kind} haven't been researched yet — check back soon.",
+    "podcastForYou": "Podcast for you",
+    "interviewForYou": "Interview for you",
+    "trendingBadge": "#{rank} Trending"
+  },
+  "sidePanel": {
+    "searchHere": "Search here",
+    "recentlySaved": "Recently saved",
+    "viewAll": "View all",
+    "nothingSavedYet": "Nothing saved yet.",
+    "categories": "Categories",
+    "comingSoon": "Coming soon"
+  },
+  "notifications": {
+    "recentlySaved": "Recently saved",
+    "nothingSavedYet": "Nothing saved yet — tap the bookmark icon on a video to add it here.",
+    "clearAll": "Clear all",
+    "viewAllFavourites": "View all Favourites",
+    "dismiss": "Dismiss"
+  },
+  "categoryBar": {
+    "all": "All",
+    "techAi": "Tech & AI",
+    "scienceEducation": "Science & Education",
+    "sports": "Sports",
+    "healthFitness": "Health & Fitness",
+    "comedy": "Comedy",
+    "popInternetCulture": "Pop Culture & Internet Culture"
+  },
+  "video": {
+    "processing": "Processing",
+    "views": "views",
+    "noVideosFound": "Nothing here yet — check back soon as we find more this week.",
+    "noVideosInPlaylist": "No videos in this playlist yet.",
+    "removeFromPlaylist": "Remove from playlist",
+    "addToPlaylist": "Add to playlist",
+    "newPlaylist": "New playlist",
+    "noPlaylistsYet": "No playlists yet — create one below.",
+    "saveToFavourites": "Save to Favourites",
+    "removeFromFavourites": "Remove from Favourites",
+    "loading": "Loading…"
+  },
+  "summary": {
+    "playEpisode": "Play episode",
+    "playing": "Playing",
+    "paused": "Paused",
+    "keyPoints": "Key points",
+    "notableQuotes": "Notable quotes",
+    "watchOnYouTube": "Watch on YouTube",
+    "summaryNotReady": "Summary not ready yet — check back after this video finishes processing.",
+    "showOriginal": "Show original",
+    "showTranslated": "Show translation",
+    "translating": "Translating…"
+  },
+  "player": {
+    "nothingPlaying": "Nothing playing",
+    "previous": "Previous",
+    "next": "Next",
+    "stopPlayback": "Stop playback"
+  },
+  "playlists": {
+    "title": "Playlists",
+    "newPlaylistName": "New playlist name",
+    "create": "Create",
+    "noPlaylistsYet": "You haven't created any playlists yet.",
+    "deletePlaylist": "Delete playlist",
+    "deleteConfirm": "Delete this playlist? This can't be undone.",
+    "logInToCreate": "to create playlists of podcasts and interviews.",
+    "video": "video",
+    "videos": "videos"
+  },
+  "favourites": {
+    "title": "Favourites",
+    "logInToSave": "to save podcasts and interviews to your favourites.",
+    "nothingSavedYet": "Nothing saved yet — tap the bookmark icon on any podcast or interview to add it here."
+  },
+  "auth": {
+    "logIn": "Log in",
+    "signUp": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "welcomeBack": "Welcome back to PodcastX.",
+    "createAccount": "Create your account",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "logInRequired": "Log in required",
+    "logInToSaveFavourites": "Log in to save videos to your Favourites.",
+    "logInToAddPlaylist": "Log in to add videos to a playlist.",
+    "notNow": "Not now",
+    "createAccountDescription": "Create a PodcastX account to save videos for later.",
+    "continueBrowsing": "Continue browsing without an account"
+  },
+  "common": {
+    "settings": "Settings"
+  },
+  "time": {
+    "minAgo": "{n} min ago",
+    "hrAgo": "{n} hr ago",
+    "dAgo": "{n}d ago"
+  },
+  "profile": {
+    "memberSince": "Member since",
+    "signOut": "Sign out",
+    "plans": "Plans",
+    "free": "Free",
+    "freeDescription": "Browse, save, and build playlists — no cost.",
+    "current": "Current",
+    "pro": "Pro",
+    "proDescription": "More coming soon.",
+    "comingSoon": "Coming soon",
+    "language": "Language",
+    "languageDescription": "Choose the language PodcastX is shown in, and video titles/summaries can be translated into."
+  }
+}

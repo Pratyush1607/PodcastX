@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "Menu",
+    "library": "Thư viện",
+    "podcasts": "Podcast",
+    "interviews": "Phỏng vấn",
+    "favourites": "Yêu thích",
+    "playlists": "Danh sách phát",
+    "goToPremium": "Nâng cấp Premium",
+    "logOut": "Đăng xuất",
+    "logIn": "Đăng nhập"
+  },
+  "header": {
+    "discoverPodcasts": "Khám phá Podcast",
+    "discoverInterviews": "Khám phá Phỏng vấn",
+    "favourites": "Yêu thích",
+    "playlists": "Danh sách phát"
+  },
+  "home": {
+    "goodMorning": "Chào buổi sáng",
+    "goodAfternoon": "Chào buổi chiều",
+    "goodEvening": "Chào buổi tối",
+    "makeAPlaylist": "Tạo danh sách phát",
+    "trending": "Xu hướng",
+    "topHosts": "Người dẫn chương trình hàng đầu",
+    "trendingPodcasts": "Podcast đang thịnh hành",
+    "trendingInterviews": "Phỏng vấn đang thịnh hành",
+    "viewAll": "Xem tất cả",
+    "noContentYet": "{kind} hàng đầu tuần này chưa được nghiên cứu — hãy kiểm tra lại sớm.",
+    "podcastForYou": "Podcast dành cho bạn",
+    "interviewForYou": "Phỏng vấn dành cho bạn",
+    "trendingBadge": "Xu hướng #{rank}"
+  },
+  "sidePanel": {
+    "searchHere": "Tìm kiếm tại đây",
+    "recentlySaved": "Đã lưu gần đây",
+    "viewAll": "Xem tất cả",
+    "nothingSavedYet": "Chưa có gì được lưu.",
+    "categories": "Danh mục",
+    "comingSoon": "Sắp ra mắt"
+  },
+  "notifications": {
+    "recentlySaved": "Đã lưu gần đây",
+    "nothingSavedYet": "Chưa có gì được lưu — nhấn vào biểu tượng dấu trang trên video để thêm vào đây.",
+    "clearAll": "Xóa tất cả",
+    "viewAllFavourites": "Xem tất cả mục Yêu thích",
+    "dismiss": "Bỏ qua"
+  },
+  "categoryBar": {
+    "all": "Tất cả",
+    "techAi": "Công nghệ & AI",
+    "scienceEducation": "Khoa học & Giáo dục",
+    "sports": "Thể thao",
+    "healthFitness": "Sức khỏe & Thể hình",
+    "comedy": "Hài hước",
+    "popInternetCulture": "Văn hóa Pop & Văn hóa Internet"
+  },
+  "video": {
+    "processing": "Đang xử lý",
+    "views": "lượt xem",
+    "noVideosFound": "Chưa có gì ở đây — hãy kiểm tra lại sớm khi chúng tôi cập nhật thêm nội dung mới.",
+    "noVideosInPlaylist": "Chưa có video nào trong danh sách phát này.",
+    "removeFromPlaylist": "Xóa khỏi danh sách phát",
+    "addToPlaylist": "Thêm vào danh sách phát",
+    "newPlaylist": "Danh sách phát mới",
+    "noPlaylistsYet": "Chưa có danh sách phát nào — hãy tạo mới bên dưới.",
+    "saveToFavourites": "Lưu vào Yêu thích",
+    "removeFromFavourites": "Xóa khỏi Yêu thích",
+    "loading": "Đang tải…"
+  },
+  "summary": {
+    "playEpisode": "Phát tập",
+    "playing": "Đang phát",
+    "paused": "Đã tạm dừng",
+    "keyPoints": "Điểm chính",
+    "notableQuotes": "Trích dẫn đáng chú ý",
+    "watchOnYouTube": "Xem trên YouTube",
+    "summaryNotReady": "Tóm tắt chưa sẵn sàng — vui lòng kiểm tra lại sau khi video xử lý xong.",
+    "showOriginal": "Xem bản gốc",
+    "showTranslated": "Xem bản dịch",
+    "translating": "Đang dịch…"
+  },
+  "player": {
+    "nothingPlaying": "Không có nội dung phát",
+    "previous": "Trước",
+    "next": "Tiếp theo",
+    "stopPlayback": "Dừng phát"
+  },
+  "playlists": {
+    "title": "Danh sách phát",
+    "newPlaylistName": "Tên danh sách phát mới",
+    "create": "Tạo",
+    "noPlaylistsYet": "Bạn chưa tạo danh sách phát nào.",
+    "deletePlaylist": "Xóa danh sách phát",
+    "deleteConfirm": "Xóa danh sách phát này? Thao tác này không thể hoàn tác.",
+    "logInToCreate": "để tạo danh sách phát podcast và phỏng vấn.",
+    "video": "video",
+    "videos": "video"
+  },
+  "favourites": {
+    "title": "Yêu thích",
+    "logInToSave": "để lưu podcast và phỏng vấn vào mục Yêu thích.",
+    "nothingSavedYet": "Chưa có gì được lưu — nhấn vào biểu tượng dấu trang trên bất kỳ podcast hoặc phỏng vấn nào để thêm vào đây."
+  },
+  "auth": {
+    "logIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "welcomeBack": "Chào mừng bạn trở lại PodcastX.",
+    "createAccount": "Tạo tài khoản của bạn",
+    "dontHaveAccount": "Bạn chưa có tài khoản?",
+    "alreadyHaveAccount": "Đã có tài khoản?",
+    "logInRequired": "Yêu cầu đăng nhập",
+    "logInToSaveFavourites": "Đăng nhập để lưu video vào mục Yêu thích.",
+    "logInToAddPlaylist": "Đăng nhập để thêm video vào danh sách phát.",
+    "notNow": "Để sau",
+    "createAccountDescription": "Tạo tài khoản PodcastX để lưu video xem sau.",
+    "continueBrowsing": "Tiếp tục duyệt mà không cần tài khoản"
+  },
+  "common": {
+    "settings": "Cài đặt"
+  },
+  "time": {
+    "minAgo": "{n} phút trước",
+    "hrAgo": "{n} giờ trước",
+    "dAgo": "{n} ngày trước"
+  },
+  "profile": {
+    "memberSince": "Thành viên từ",
+    "signOut": "Đăng xuất",
+    "plans": "Gói cước",
+    "free": "Miễn phí",
+    "freeDescription": "Duyệt, lưu và tạo danh sách phát — hoàn toàn miễn phí.",
+    "current": "Hiện tại",
+    "pro": "Pro",
+    "proDescription": "Nhiều tính năng hơn sẽ sớm ra mắt.",
+    "comingSoon": "Sắp ra mắt",
+    "language": "Ngôn ngữ",
+    "languageDescription": "Chọn ngôn ngữ hiển thị cho PodcastX, cũng như ngôn ngữ để dịch tiêu đề và tóm tắt video."
+  }
+}

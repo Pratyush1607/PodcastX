@@ -8,11 +8,13 @@ import { BookmarkButton } from "@/components/content/BookmarkButton";
 import { AddToPlaylistButton } from "@/components/content/AddToPlaylistButton";
 import { usePlayer } from "@/context/PlayerContext";
 import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
+import { useLocale } from "@/context/LocaleContext";
 
 export function Hero({ videos, savedVideoIds }: { videos: ApiVideo[]; savedVideoIds: Set<string> }) {
   const [index, setIndex] = useState(0);
   const [showSummary, setShowSummary] = useState(false);
   const { current, playing, play, togglePlay } = usePlayer();
+  const { t } = useLocale();
 
   if (videos.length === 0) return <div className="h-48 rounded-[28px] bg-surface sm:h-56" />;
 
@@ -53,7 +55,7 @@ export function Hero({ videos, savedVideoIds }: { videos: ApiVideo[]; savedVideo
 
       <div className="absolute top-4 left-4">
         <span className="rounded-full bg-accent px-3 py-1 text-xs font-extrabold text-accent-ink">
-          #{index + 1} Trending
+          {t("home.trendingBadge", { rank: index + 1 })}
         </span>
       </div>
 

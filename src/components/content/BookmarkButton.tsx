@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Bookmark } from "lucide-react";
 import { LoginPromptModal } from "@/components/ui/LoginPromptModal";
+import { useLocale } from "@/context/LocaleContext";
 
 export function BookmarkButton({
   videoId,
@@ -16,6 +17,7 @@ export function BookmarkButton({
   const [saved, setSaved] = useState(initialSaved);
   const [loading, setLoading] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const { t } = useLocale();
 
   async function toggle(e: React.MouseEvent) {
     e.preventDefault();
@@ -45,7 +47,7 @@ export function BookmarkButton({
       <button
         onClick={toggle}
         disabled={loading}
-        title={saved ? "Remove from Favourites" : "Save to Favourites"}
+        title={saved ? t("video.removeFromFavourites") : t("video.saveToFavourites")}
         className={`flex shrink-0 items-center justify-center rounded-full backdrop-blur transition disabled:opacity-50 ${
           size === "lg" ? "h-10 w-10 bg-white/10 hover:bg-white/20" : "h-7 w-7 bg-black/50 hover:bg-black/70"
         }`}
@@ -59,7 +61,7 @@ export function BookmarkButton({
 
       {showLoginPrompt && (
         <LoginPromptModal
-          message="Log in to save videos to your Favourites."
+          message={t("auth.logInToSaveFavourites")}
           onClose={() => setShowLoginPrompt(false)}
         />
       )}

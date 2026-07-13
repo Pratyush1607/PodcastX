@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "メニュー",
+    "library": "ライブラリ",
+    "podcasts": "ポッドキャスト",
+    "interviews": "インタビュー",
+    "favourites": "お気に入り",
+    "playlists": "プレイリスト",
+    "goToPremium": "プレミアムに登録",
+    "logOut": "ログアウト",
+    "logIn": "ログイン"
+  },
+  "header": {
+    "discoverPodcasts": "ポッドキャストを探す",
+    "discoverInterviews": "インタビューを探す",
+    "favourites": "お気に入り",
+    "playlists": "プレイリスト"
+  },
+  "home": {
+    "goodMorning": "おはようございます",
+    "goodAfternoon": "こんにちは",
+    "goodEvening": "こんばんは",
+    "makeAPlaylist": "プレイリストを作成",
+    "trending": "トレンド",
+    "topHosts": "トップホスト",
+    "trendingPodcasts": "トレンドポッドキャスト",
+    "trendingInterviews": "トレンドインタビュー",
+    "viewAll": "すべて表示",
+    "noContentYet": "今週のトップ{kind}はまだ解析されていません。しばらくしてから再度確認してください。",
+    "podcastForYou": "おすすめポッドキャスト",
+    "interviewForYou": "おすすめインタビュー",
+    "trendingBadge": "#{rank} トレンド"
+  },
+  "sidePanel": {
+    "searchHere": "検索",
+    "recentlySaved": "最近保存したもの",
+    "viewAll": "すべて表示",
+    "nothingSavedYet": "まだ何も保存されていません。",
+    "categories": "カテゴリー",
+    "comingSoon": "近日公開"
+  },
+  "notifications": {
+    "recentlySaved": "最近保存したもの",
+    "nothingSavedYet": "まだ何も保存されていません。動画のブックマークアイコンをタップして追加してください。",
+    "clearAll": "すべて削除",
+    "viewAllFavourites": "お気に入りをすべて表示",
+    "dismiss": "閉じる"
+  },
+  "categoryBar": {
+    "all": "すべて",
+    "techAi": "テクノロジー・AI",
+    "scienceEducation": "科学・教育",
+    "sports": "スポーツ",
+    "healthFitness": "健康・フィットネス",
+    "comedy": "コメディ",
+    "popInternetCulture": "ポップカルチャー・インターネット文化"
+  },
+  "video": {
+    "processing": "処理中",
+    "views": "回視聴",
+    "noVideosFound": "現在コンテンツはありません。今週中に追加されるのでお待ちください。",
+    "noVideosInPlaylist": "このプレイリストにはまだ動画がありません。",
+    "removeFromPlaylist": "プレイリストから削除",
+    "addToPlaylist": "プレイリストに追加",
+    "newPlaylist": "新規プレイリスト",
+    "noPlaylistsYet": "プレイリストがありません。以下から作成してください。",
+    "saveToFavourites": "お気に入りに追加",
+    "removeFromFavourites": "お気に入りから削除",
+    "loading": "読み込み中…"
+  },
+  "summary": {
+    "playEpisode": "エピソードを再生",
+    "playing": "再生中",
+    "paused": "一時停止",
+    "keyPoints": "重要なポイント",
+    "notableQuotes": "注目の引用",
+    "watchOnYouTube": "YouTubeで視聴",
+    "summaryNotReady": "要約がまだ準備されていません。動画の処理が終わるまでお待ちください。",
+    "showOriginal": "オリジナルを表示",
+    "showTranslated": "翻訳を表示",
+    "translating": "翻訳中…"
+  },
+  "player": {
+    "nothingPlaying": "再生していません",
+    "previous": "前へ",
+    "next": "次へ",
+    "stopPlayback": "再生を停止"
+  },
+  "playlists": {
+    "title": "プレイリスト",
+    "newPlaylistName": "新しいプレイリスト名",
+    "create": "作成",
+    "noPlaylistsYet": "プレイリストをまだ作成していません。",
+    "deletePlaylist": "プレイリストを削除",
+    "deleteConfirm": "このプレイリストを削除しますか？元に戻すことはできません。",
+    "logInToCreate": "ポッドキャストやインタビューのプレイリストを作成するにはログインしてください。",
+    "video": "動画",
+    "videos": "動画"
+  },
+  "favourites": {
+    "title": "お気に入り",
+    "logInToSave": "ポッドキャストやインタビューをお気に入りに追加するにはログインしてください。",
+    "nothingSavedYet": "まだ何も保存されていません。ポッドキャストやインタビューのブックマークアイコンをタップして追加してください。"
+  },
+  "auth": {
+    "logIn": "ログイン",
+    "signUp": "アカウント登録",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "welcomeBack": "PodcastXへようこそ。",
+    "createAccount": "アカウントを作成",
+    "dontHaveAccount": "アカウントをお持ちでないですか？",
+    "alreadyHaveAccount": "既にアカウントをお持ちですか？",
+    "logInRequired": "ログインが必要です",
+    "logInToSaveFavourites": "動画をお気に入りに追加するにはログインしてください。",
+    "logInToAddPlaylist": "動画をプレイリストに追加するにはログインしてください。",
+    "notNow": "後で",
+    "createAccountDescription": "PodcastXアカウントを作成して、動画を保存しましょう。",
+    "continueBrowsing": "アカウントなしでブラウジングを続ける"
+  },
+  "common": {
+    "settings": "設定"
+  },
+  "time": {
+    "minAgo": "{n} 分前",
+    "hrAgo": "{n} 時間前",
+    "dAgo": "{n} 日前"
+  },
+  "profile": {
+    "memberSince": "登録日:",
+    "signOut": "サインアウト",
+    "plans": "プラン",
+    "free": "無料",
+    "freeDescription": "ブラウジング、保存、プレイリスト作成が無料で行えます。",
+    "current": "現在",
+    "pro": "Pro",
+    "proDescription": "近日公開予定。",
+    "comingSoon": "近日公開",
+    "language": "言語",
+    "languageDescription": "PodcastXの表示言語および動画タイトルや要約の翻訳対象言語を選択してください。"
+  }
+}

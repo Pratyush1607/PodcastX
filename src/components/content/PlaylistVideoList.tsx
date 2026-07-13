@@ -8,6 +8,7 @@ import { SummaryPanel } from "@/components/content/SummaryPanel";
 import { BookmarkButton } from "@/components/content/BookmarkButton";
 import { usePlayer } from "@/context/PlayerContext";
 import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
+import { useLocale } from "@/context/LocaleContext";
 
 export function PlaylistVideoList({
   playlistId,
@@ -21,6 +22,7 @@ export function PlaylistVideoList({
   const [videos, setVideos] = useState(initialVideos);
   const [selected, setSelected] = useState<ApiVideo | null>(null);
   const { current, playing, play, togglePlay } = usePlayer();
+  const { t } = useLocale();
 
   function handlePlayClick(e: React.MouseEvent, video: ApiVideo) {
     e.stopPropagation();
@@ -37,7 +39,7 @@ export function PlaylistVideoList({
   }
 
   if (videos.length === 0) {
-    return <p className="text-muted">No videos in this playlist yet.</p>;
+    return <p className="text-muted">{t("video.noVideosInPlaylist")}</p>;
   }
 
   return (
@@ -75,15 +77,17 @@ export function PlaylistVideoList({
               <p className="truncate text-sm text-muted">{video.channel_name}</p>
             </div>
             <div className="flex flex-col items-end gap-1">
-              <span className="text-sm text-muted">{Number(video.view_count ?? 0).toLocaleString()} views</span>
-              {!video.summary && <Badge variant="warning">Processing</Badge>}
+              <span className="text-sm text-muted">
+                {Number(video.view_count ?? 0).toLocaleString()} {t("video.views")}
+              </span>
+              {!video.summary && <Badge variant="warning">{t("video.processing")}</Badge>}
             </div>
           </div>
           <div className="flex shrink-0 gap-2">
             <BookmarkButton videoId={video.id} initialSaved={savedVideoIds.has(video.id)} />
             <button
               onClick={() => removeFromPlaylist(video.id)}
-              title="Remove from playlist"
+              title={t("video.removeFromPlaylist")}
               className="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white transition hover:bg-black/70"
             >
               <X size={15} />

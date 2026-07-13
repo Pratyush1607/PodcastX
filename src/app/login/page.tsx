@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { login } from "@/app/actions/auth";
 import { Button } from "@/components/ui/Button";
+import { getServerT } from "@/lib/serverTranslate";
 
 export default async function LoginPage({
   searchParams,
@@ -8,13 +9,14 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string; message?: string }>;
 }) {
   const { error, message } = await searchParams;
+  const { t } = await getServerT();
 
   return (
     <div className="flex min-h-screen items-center justify-center px-6">
       <div className="w-full max-w-sm space-y-6">
         <div className="text-center">
-          <h1 className="text-2xl font-bold">Log in</h1>
-          <p className="mt-1 text-sm text-muted">Welcome back to PodcastX.</p>
+          <h1 className="text-2xl font-bold">{t("auth.logIn")}</h1>
+          <p className="mt-1 text-sm text-muted">{t("auth.welcomeBack")}</p>
         </div>
 
         {message && <p className="rounded-lg bg-accent/10 p-3 text-sm text-accent">{message}</p>}
@@ -23,7 +25,7 @@ export default async function LoginPage({
         <form action={login} className="space-y-4">
           <div>
             <label htmlFor="email" className="mb-1 block text-sm font-medium text-muted">
-              Email
+              {t("auth.email")}
             </label>
             <input
               id="email"
@@ -35,7 +37,7 @@ export default async function LoginPage({
           </div>
           <div>
             <label htmlFor="password" className="mb-1 block text-sm font-medium text-muted">
-              Password
+              {t("auth.password")}
             </label>
             <input
               id="password"
@@ -46,19 +48,19 @@ export default async function LoginPage({
             />
           </div>
           <Button type="submit" className="w-full">
-            Log in
+            {t("auth.logIn")}
           </Button>
         </form>
 
         <p className="text-center text-sm text-muted">
-          Don&apos;t have an account?{" "}
+          {t("auth.dontHaveAccount")}{" "}
           <Link href="/signup" className="text-accent hover:underline">
-            Sign up
+            {t("auth.signUp")}
           </Link>
         </p>
         <p className="text-center text-sm">
           <Link href="/podcasts" className="text-muted underline hover:text-foreground">
-            Continue browsing without an account
+            {t("auth.continueBrowsing")}
           </Link>
         </p>
       </div>

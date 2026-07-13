@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "Меню",
+    "library": "Библиотека",
+    "podcasts": "Подкасты",
+    "interviews": "Интервью",
+    "favourites": "Избранное",
+    "playlists": "Плейлисты",
+    "goToPremium": "Перейти на Premium",
+    "logOut": "Выйти",
+    "logIn": "Войти"
+  },
+  "header": {
+    "discoverPodcasts": "Найти подкасты",
+    "discoverInterviews": "Найти интервью",
+    "favourites": "Избранное",
+    "playlists": "Плейлисты"
+  },
+  "home": {
+    "goodMorning": "Доброе утро",
+    "goodAfternoon": "Добрый день",
+    "goodEvening": "Добрый вечер",
+    "makeAPlaylist": "Создать плейлист",
+    "trending": "Популярное",
+    "topHosts": "Лучшие авторы",
+    "trendingPodcasts": "Популярные подкасты",
+    "trendingInterviews": "Популярные интервью",
+    "viewAll": "Смотреть все",
+    "noContentYet": "Лучшие {kind} этой недели еще не проанализированы. Загляните позже.",
+    "podcastForYou": "Подкаст для вас",
+    "interviewForYou": "Интервью для вас",
+    "trendingBadge": "#{rank} в тренде"
+  },
+  "sidePanel": {
+    "searchHere": "Поиск",
+    "recentlySaved": "Недавно сохраненное",
+    "viewAll": "Смотреть все",
+    "nothingSavedYet": "Пока ничего не сохранено.",
+    "categories": "Категории",
+    "comingSoon": "Скоро"
+  },
+  "notifications": {
+    "recentlySaved": "Недавно сохраненное",
+    "nothingSavedYet": "Пока ничего не сохранено — нажмите на иконку закладки на видео, чтобы добавить его сюда.",
+    "clearAll": "Очистить все",
+    "viewAllFavourites": "Показать все избранное",
+    "dismiss": "Закрыть"
+  },
+  "categoryBar": {
+    "all": "Все",
+    "techAi": "Технологии и ИИ",
+    "scienceEducation": "Наука и образование",
+    "sports": "Спорт",
+    "healthFitness": "Здоровье и фитнес",
+    "comedy": "Комедия",
+    "popInternetCulture": "Поп-культура и интернет-культура"
+  },
+  "video": {
+    "processing": "Обработка",
+    "views": "просмотров",
+    "noVideosFound": "Здесь пока пусто. Загляните позже, мы добавляем новые материалы каждую неделю.",
+    "noVideosInPlaylist": "В этом плейлисте пока нет видео.",
+    "removeFromPlaylist": "Удалить из плейлиста",
+    "addToPlaylist": "Добавить в плейлист",
+    "newPlaylist": "Новый плейлист",
+    "noPlaylistsYet": "У вас еще нет плейлистов — создайте один ниже.",
+    "saveToFavourites": "Добавить в избранное",
+    "removeFromFavourites": "Удалить из избранного",
+    "loading": "Загрузка…"
+  },
+  "summary": {
+    "playEpisode": "Слушать эпизод",
+    "playing": "Играет",
+    "paused": "Пауза",
+    "keyPoints": "Ключевые моменты",
+    "notableQuotes": "Цитаты",
+    "watchOnYouTube": "Смотреть на YouTube",
+    "summaryNotReady": "Краткое содержание еще не готово. Загляните, когда обработка видео завершится.",
+    "showOriginal": "Оригинал",
+    "showTranslated": "Перевод",
+    "translating": "Перевод…"
+  },
+  "player": {
+    "nothingPlaying": "Ничего не играет",
+    "previous": "Назад",
+    "next": "Вперед",
+    "stopPlayback": "Остановить"
+  },
+  "playlists": {
+    "title": "Плейлисты",
+    "newPlaylistName": "Название нового плейлиста",
+    "create": "Создать",
+    "noPlaylistsYet": "Вы еще не создали ни одного плейлиста.",
+    "deletePlaylist": "Удалить плейлист",
+    "deleteConfirm": "Удалить этот плейлист? Это действие нельзя отменить.",
+    "logInToCreate": "войдите, чтобы создавать плейлисты из подкастов и интервью.",
+    "video": "видео",
+    "videos": "видео"
+  },
+  "favourites": {
+    "title": "Избранное",
+    "logInToSave": "войдите, чтобы сохранять подкасты и интервью в избранное.",
+    "nothingSavedYet": "Пока ничего не сохранено — нажмите на иконку закладки на любом подкасте или интервью, чтобы добавить его сюда."
+  },
+  "auth": {
+    "logIn": "Войти",
+    "signUp": "Регистрация",
+    "email": "Email",
+    "password": "Пароль",
+    "welcomeBack": "С возвращением в PodcastX.",
+    "createAccount": "Создать аккаунт",
+    "dontHaveAccount": "Нет аккаунта?",
+    "alreadyHaveAccount": "Уже есть аккаунт?",
+    "logInRequired": "Требуется вход",
+    "logInToSaveFavourites": "Войдите, чтобы сохранять видео в избранное.",
+    "logInToAddPlaylist": "Войдите, чтобы добавлять видео в плейлист.",
+    "notNow": "Не сейчас",
+    "createAccountDescription": "Создайте аккаунт в PodcastX, чтобы сохранять видео на потом.",
+    "continueBrowsing": "Продолжить без аккаунта"
+  },
+  "common": {
+    "settings": "Настройки"
+  },
+  "time": {
+    "minAgo": "{n} мин. назад",
+    "hrAgo": "{n} ч. назад",
+    "dAgo": "{n} д. назад"
+  },
+  "profile": {
+    "memberSince": "С нами с",
+    "signOut": "Выйти",
+    "plans": "Тарифы",
+    "free": "Бесплатный",
+    "freeDescription": "Просмотр, сохранение и создание плейлистов — бесплатно.",
+    "current": "Текущий",
+    "pro": "Pro",
+    "proDescription": "Скоро появятся новые функции.",
+    "comingSoon": "Скоро",
+    "language": "Язык",
+    "languageDescription": "Выберите язык интерфейса PodcastX. Заголовки видео и краткие содержания также могут быть переведены на этот язык."
+  }
+}

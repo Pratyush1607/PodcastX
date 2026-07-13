@@ -9,10 +9,12 @@ import { BookmarkButton } from "@/components/content/BookmarkButton";
 import { AddToPlaylistButton } from "@/components/content/AddToPlaylistButton";
 import { usePlayer } from "@/context/PlayerContext";
 import { toNowPlayingTrack } from "@/lib/toNowPlayingTrack";
+import { useLocale } from "@/context/LocaleContext";
 
 export function TopFiveList({ videos, savedVideoIds }: { videos: ApiVideo[]; savedVideoIds: Set<string> }) {
   const [selected, setSelected] = useState<ApiVideo | null>(null);
   const { current, playing, play, togglePlay } = usePlayer();
+  const { t } = useLocale();
 
   function handlePlayClick(e: React.MouseEvent, video: ApiVideo) {
     e.stopPropagation();
@@ -24,7 +26,7 @@ export function TopFiveList({ videos, savedVideoIds }: { videos: ApiVideo[]; sav
   }
 
   if (videos.length === 0) {
-    return <p className="text-muted">Nothing here yet — check back soon as we find more this week.</p>;
+    return <p className="text-muted">{t("video.noVideosFound")}</p>;
   }
 
   return (
@@ -63,8 +65,10 @@ export function TopFiveList({ videos, savedVideoIds }: { videos: ApiVideo[]; sav
               <p className="truncate text-sm text-muted">{video.channel_name}</p>
             </div>
             <div className="flex flex-col items-end gap-1">
-              <span className="text-sm text-muted">{Number(video.view_count ?? 0).toLocaleString()} views</span>
-              {!video.summary && <Badge variant="warning">Processing</Badge>}
+              <span className="text-sm text-muted">
+                {Number(video.view_count ?? 0).toLocaleString()} {t("video.views")}
+              </span>
+              {!video.summary && <Badge variant="warning">{t("video.processing")}</Badge>}
             </div>
           </div>
           <div className="flex shrink-0 gap-2">

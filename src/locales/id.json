@@ -1,0 +1,142 @@
+{
+  "sidebar": {
+    "menu": "Menu",
+    "library": "Pustaka",
+    "podcasts": "Podcast",
+    "interviews": "Wawancara",
+    "favourites": "Favorit",
+    "playlists": "Playlist",
+    "goToPremium": "Beralih ke Premium",
+    "logOut": "Keluar",
+    "logIn": "Masuk"
+  },
+  "header": {
+    "discoverPodcasts": "Temukan Podcast",
+    "discoverInterviews": "Temukan Wawancara",
+    "favourites": "Favorit",
+    "playlists": "Playlist"
+  },
+  "home": {
+    "goodMorning": "Selamat pagi",
+    "goodAfternoon": "Selamat siang",
+    "goodEvening": "Selamat malam",
+    "makeAPlaylist": "Buat playlist",
+    "trending": "Sedang Tren",
+    "topHosts": "Tuan rumah teratas",
+    "trendingPodcasts": "Podcast sedang tren",
+    "trendingInterviews": "Wawancara sedang tren",
+    "viewAll": "Lihat Semua",
+    "noContentYet": "{kind} terbaik minggu ini belum diteliti — periksa kembali segera.",
+    "podcastForYou": "Podcast untuk Anda",
+    "interviewForYou": "Wawancara untuk Anda",
+    "trendingBadge": "#{rank} Sedang Tren"
+  },
+  "sidePanel": {
+    "searchHere": "Cari di sini",
+    "recentlySaved": "Disimpan baru-baru ini",
+    "viewAll": "Lihat semua",
+    "nothingSavedYet": "Belum ada yang disimpan.",
+    "categories": "Kategori",
+    "comingSoon": "Segera hadir"
+  },
+  "notifications": {
+    "recentlySaved": "Disimpan baru-baru ini",
+    "nothingSavedYet": "Belum ada yang disimpan — ketuk ikon bookmark pada video untuk menambahkannya di sini.",
+    "clearAll": "Hapus semua",
+    "viewAllFavourites": "Lihat semua Favorit",
+    "dismiss": "Tutup"
+  },
+  "categoryBar": {
+    "all": "Semua",
+    "techAi": "Teknologi & AI",
+    "scienceEducation": "Sains & Pendidikan",
+    "sports": "Olahraga",
+    "healthFitness": "Kesehatan & Kebugaran",
+    "comedy": "Komedi",
+    "popInternetCulture": "Budaya Pop & Budaya Internet"
+  },
+  "video": {
+    "processing": "Memproses",
+    "views": "tayangan",
+    "noVideosFound": "Belum ada apa-apa di sini — periksa kembali segera saat kami menemukan lebih banyak minggu ini.",
+    "noVideosInPlaylist": "Belum ada video di playlist ini.",
+    "removeFromPlaylist": "Hapus dari playlist",
+    "addToPlaylist": "Tambahkan ke playlist",
+    "newPlaylist": "Playlist baru",
+    "noPlaylistsYet": "Belum ada playlist — buat satu di bawah.",
+    "saveToFavourites": "Simpan ke Favorit",
+    "removeFromFavourites": "Hapus dari Favorit",
+    "loading": "Memuat…"
+  },
+  "summary": {
+    "playEpisode": "Putar episode",
+    "playing": "Memutar",
+    "paused": "Dijeda",
+    "keyPoints": "Poin kunci",
+    "notableQuotes": "Kutipan penting",
+    "watchOnYouTube": "Tonton di YouTube",
+    "summaryNotReady": "Ringkasan belum siap — periksa kembali setelah video ini selesai diproses.",
+    "showOriginal": "Tampilkan asli",
+    "showTranslated": "Tampilkan terjemahan",
+    "translating": "Menerjemahkan…"
+  },
+  "player": {
+    "nothingPlaying": "Tidak ada yang diputar",
+    "previous": "Sebelumnya",
+    "next": "Selanjutnya",
+    "stopPlayback": "Hentikan pemutaran"
+  },
+  "playlists": {
+    "title": "Playlist",
+    "newPlaylistName": "Nama playlist baru",
+    "create": "Buat",
+    "noPlaylistsYet": "Anda belum membuat playlist apa pun.",
+    "deletePlaylist": "Hapus playlist",
+    "deleteConfirm": "Hapus playlist ini? Ini tidak bisa dibatalkan.",
+    "logInToCreate": "untuk membuat playlist podcast dan wawancara.",
+    "video": "video",
+    "videos": "video"
+  },
+  "favourites": {
+    "title": "Favorit",
+    "logInToSave": "untuk menyimpan podcast dan wawancara ke favorit Anda.",
+    "nothingSavedYet": "Belum ada yang disimpan — ketuk ikon bookmark pada podcast atau wawancara apa pun untuk menambahkannya di sini."
+  },
+  "auth": {
+    "logIn": "Masuk",
+    "signUp": "Daftar",
+    "email": "Email",
+    "password": "Kata sandi",
+    "welcomeBack": "Selamat datang kembali di PodcastX.",
+    "createAccount": "Buat akun Anda",
+    "dontHaveAccount": "Belum punya akun?",
+    "alreadyHaveAccount": "Sudah punya akun?",
+    "logInRequired": "Perlu masuk",
+    "logInToSaveFavourites": "Masuk untuk menyimpan video ke Favorit Anda.",
+    "logInToAddPlaylist": "Masuk untuk menambahkan video ke playlist.",
+    "notNow": "Jangan sekarang",
+    "createAccountDescription": "Buat akun PodcastX untuk menyimpan video untuk nanti.",
+    "continueBrowsing": "Lanjutkan menjelajah tanpa akun"
+  },
+  "common": {
+    "settings": "Pengaturan"
+  },
+  "time": {
+    "minAgo": "{n} menit yang lalu",
+    "hrAgo": "{n} jam yang lalu",
+    "dAgo": "{n} hari yang lalu"
+  },
+  "profile": {
+    "memberSince": "Anggota sejak",
+    "signOut": "Keluar",
+    "plans": "Paket",
+    "free": "Gratis",
+    "freeDescription": "Jelajahi, simpan, dan buat playlist — tanpa biaya.",
+    "current": "Saat ini",
+    "pro": "Pro",
+    "proDescription": "Lebih banyak akan segera hadir.",
+    "comingSoon": "Segera hadir",
+    "language": "Bahasa",
+    "languageDescription": "Pilih bahasa untuk menampilkan PodcastX, dan judul/ringkasan video dapat diterjemahkan ke dalam bahasa tersebut."
+  }
+}

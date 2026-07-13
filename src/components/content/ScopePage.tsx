@@ -6,7 +6,7 @@ import { getSavedVideoIdSet } from "@/lib/watchLater";
 import { withTranslatedTitles } from "@/lib/translateTitles";
 import { TopFiveList } from "@/components/content/TopFiveList";
 import { getServerT } from "@/lib/serverTranslate";
-import { CATEGORY_LABEL_KEYS } from "@/components/content/CategoryBar";
+import { CATEGORY_LABEL_KEYS } from "@/lib/categoryLabels";
 
 const VALID_SCOPES: CategorySlug[] = ["overall", ...CATEGORY_SLUGS];
 

@@ -2,6 +2,7 @@ import { getServerLocale } from "@/lib/getServerLocale";
 import { DICTIONARIES } from "@/lib/localeDictionaries";
 
 function resolve(obj: unknown, path: string): unknown {
+  if (typeof path !== "string") return undefined;
   return path
     .split(".")
     .reduce<unknown>(
@@ -17,7 +18,7 @@ export async function getServerT() {
 
   function t(key: string, vars?: Record<string, string | number>): string {
     const raw = resolve(dictionary, key) ?? resolve(DICTIONARIES.en, key);
-    let str = typeof raw === "string" ? raw : key;
+    let str = typeof raw === "string" ? raw : (key ?? "");
     if (vars) {
       for (const [k, v] of Object.entries(vars)) str = str.split(`{${k}}`).join(String(v));
     }

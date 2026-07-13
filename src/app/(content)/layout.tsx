@@ -6,6 +6,10 @@ import { PlayerProvider } from "@/context/PlayerContext";
 import { NowPlayingBar } from "@/components/layout/NowPlayingBar";
 import { MobileNavProvider } from "@/context/MobileNavContext";
 
+// Gives after()-scheduled background work (e.g. warming the title-translation cache) enough
+// time to actually finish post-response, instead of being cut off at the platform default.
+export const maxDuration = 60;
+
 export default async function ContentLayout({ children }: { children: ReactNode }) {
   const supabase = await createClient();
   const {
